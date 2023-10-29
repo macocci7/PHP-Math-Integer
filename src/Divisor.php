@@ -122,4 +122,72 @@ class Divisor extends Prime
         }
         return $cf;
     }
+
+    public function greatestCommonFactor(int $n1, int $n2)
+    {
+        if ($n1 < 1 || $n2 < 1) {
+            return;
+        }
+        $cf = $this->commonFactors($n1, $n2);
+        if (is_null($cf)) {
+            return;
+        }
+        $ec = array_keys($cf);
+        $ncf = 1;
+        foreach ($ec as $radix) {
+            $ncf *= $radix ** $cf[$radix];
+        }
+        return $ncf;
+    }
+
+    public function commonDivisors(int $n1, int $n2)
+    {
+        if ($n1 < 1 || $n2 < 1) {
+            return;
+        }
+        $gcf = $this->greatestCommonFactor($n1, $n2);
+        return is_null($gcf) ? null : $this->list($gcf);
+    }
+
+    /**
+     * removes divisors $d2 from divisors $d1
+     * @param   array   $d1
+     * @param   array   $d2
+     * @return  array|null
+     */
+    public function removeDivisors(array $d1, array $d2)
+    {
+        if (empty($d1) || empty($d2)) {
+            return $d1;
+        }
+        foreach (array_keys($d2) as $radix) {
+            if (array_key_exists($radix, $d1)) {
+                if ($d1[$radix] > $d2[$radix]) {
+                    $d1[$radix] -= $d2[$radix];
+                } else {
+                    unset($d1[$radix]);
+                }
+            }
+        }
+        if (empty($d1)) {
+            $d1 = [ 1 => 1, ];
+        }
+        return $d1;
+    }
+
+    public function reduceFraction(int $n1, int $n2)
+    {
+        if ($n1 < 2 || $n2 < 2) {
+            return;
+        }
+        $f1 = $this->factors($n1);
+        $f2 = $this->factors($n2);
+        $m1 = $this->countSameElements($f1);
+        $m2 = $this->countSameElements($f2);
+        $cf = $this->commonFactors($n1, $n2);
+        return [
+            $this->removeDivisors($m1, $cf),
+            $this->removeDivisors($m2, $cf),
+        ];
+    }
 }
