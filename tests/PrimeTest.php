@@ -36,6 +36,29 @@ final class PrimeTest extends TestCase
         }
     }
 
+    public function test_isPrimeAll_can_judge_correctly(): void
+    {
+        $cases = [
+            ['param' => [], 'expect' => false, ],
+            ['param' => [0], 'expect' => false, ],
+            ['param' => [-1], 'expect' => false, ],
+            ['param' => [-2], 'expect' => false, ],
+            ['param' => [1], 'expect' => false, ],
+            ['param' => [2], 'expect' => true, ],
+            ['param' => [3], 'expect' => true, ],
+            ['param' => [4], 'expect' => false, ],
+            ['param' => [5], 'expect' => true, ],
+            ['param' => [6], 'expect' => false, ],
+            ['param' => [7], 'expect' => true, ],
+            ['param' => [2,3,5,7,11,13,17,19], 'expect' => true, ],
+            ['param' => [2,3,5,7,11,13,17,19,20], 'expect' => false, ],
+        ];
+        $p = new Prime();
+        foreach ($cases as $case) {
+            $this->assertSame($case['expect'], $p->isPrimeAll($case['param']));
+        }
+    }
+
     public function test_next_can_return_next_prime_correctly(): void
     {
         $cases = [
