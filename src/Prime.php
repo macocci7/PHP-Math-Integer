@@ -2,7 +2,7 @@
 
 namespace Macocci7\PhpMathInteger;
 
-use Macocci7\PhpMathInteger\Number as Number;
+use Macocci7\PhpMathInteger\Number;
 
 class Prime extends Number
 {
@@ -25,6 +25,23 @@ class Prime extends Number
         }
         for ($i = 2; $i <= sqrt($n); $i++) {
             if ($n % $i === 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * judges if all elements of the array are primes or not
+     * @param   array   $elements
+     * @return  bool
+     */
+    public function isPrimeAll(array $elements) {
+        if (count($elements) < 1) {
+            return false;
+        }
+        foreach ($elements as $e) {
+            if (!$this->isPrime($e)) {
                 return false;
             }
         }
