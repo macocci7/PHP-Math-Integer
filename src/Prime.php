@@ -36,7 +36,8 @@ class Prime extends Number
      * @param   array   $elements
      * @return  bool
      */
-    public function isPrimeAll(array $elements) {
+    public function isPrimeAll(array $elements)
+    {
         if (count($elements) < 1) {
             return false;
         }
