@@ -275,4 +275,57 @@ final class EuclidTest extends TestCase
             $this->assertSame($case['expect'], $e->gcd($case['a'], $case['b']));
         }
     }
+
+    public function test_isGcdOf_can_judge_correctly(): void
+    {
+        $cases = [
+            ['c' => -10, 'a' => -10, 'b' => -10, 'expect' => false, ],
+            ['c' => -1, 'a' => -1, 'b' => -1, 'expect' => false, ],
+            ['c' => 0, 'a' => 0, 'b' => 0, 'expect' => false, ],
+            ['c' => 1, 'a' => 0, 'b' => 0, 'expect' => false, ],
+            ['c' => 1, 'a' => 1, 'b' => 0, 'expect' => false, ],
+            ['c' => 1, 'a' => 0, 'b' => 1, 'expect' => false, ],
+            ['c' => 0, 'a' => 1, 'b' => 0, 'expect' => false, ],
+            ['c' => 0, 'a' => 1, 'b' => 1, 'expect' => false, ],
+            ['c' => 0, 'a' => 0, 'b' => 1, 'expect' => false, ],
+            ['c' => 1, 'a' => 1, 'b' => 1, 'expect' => true, ],
+            ['c' => 1, 'a' => 1, 'b' => 2, 'expect' => true, ],
+            ['c' => 1, 'a' => 2, 'b' => 1, 'expect' => true, ],
+            ['c' => 1, 'a' => 2, 'b' => 3, 'expect' => true, ],
+            ['c' => 3, 'a' => 2, 'b' => 1, 'expect' => false, ],
+            ['c' => 2, 'a' => 4, 'b' => 6, 'expect' => true, ],
+            ['c' => 3, 'a' => 6, 'b' => 9, 'expect' => true, ],
+            ['c' => 4, 'a' => 4, 'b' => 8, 'expect' => true, ],
+        ];
+        $e = new Euclid();
+        foreach ($cases as $case) {
+            $this->assertSame($case['expect'], $e->isGcdOf($case['c'], $case['a'], $case['b']));
+        }
+    }
+
+    public function test_isCoprime_can_judge_correctly(): void
+    {
+        $cases = [
+            ['a' => -10, 'b' => -10, 'expect' => false, ],
+            ['a' => -1, 'b' => -1, 'expect' => false, ],
+            ['a' => -1, 'b' => 2, 'expect' => false, ],
+            ['a' => 0, 'b' => 0, 'expect' => false, ],
+            ['a' => 0, 'b' => 1, 'expect' => false, ],
+            ['a' => 1, 'b' => 0, 'expect' => false, ],
+            ['a' => 1, 'b' => 1, 'expect' => false, ],
+            ['a' => 1, 'b' => 2, 'expect' => true, ],
+            ['a' => 2, 'b' => -1, 'expect' => false, ],
+            ['a' => 2, 'b' => 1, 'expect' => true, ],
+            ['a' => 2, 'b' => 2, 'expect' => false, ],
+            ['a' => 2, 'b' => 3, 'expect' => true, ],
+            ['a' => 2, 'b' => 4, 'expect' => false, ],
+            ['a' => 3, 'b' => 4, 'expect' => true, ],
+            ['a' => 4, 'b' => 6, 'expect' => false, ],
+            ['a' => 4, 'b' => 9, 'expect' => true, ],
+        ];
+        $e = new Euclid();
+        foreach ($cases as $case) {
+            $this->assertSame($case['expect'], $e->isCoprime($case['a'], $case['b']));
+        }
+    }
 }

@@ -77,10 +77,7 @@ class Euclid extends Prime
         if (!$this->isNaturalAll([$a, $b, $c])) {
             return false;
         }
-        if ($this->gcd($a, $b) === $c) {
-            return true;
-        }
-        return false;
+        return $this->gcd($a, $b) === $c;
     }
 
     /**
@@ -91,6 +88,6 @@ class Euclid extends Prime
      */
     public function isCoprime(int $a, int $b)
     {
-        return $this->isGcd($a, $b) === 1;
+        return $a === $b ? false : $this->gcd($a, $b) === 1;
     }
 }
