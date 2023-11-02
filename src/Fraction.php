@@ -23,6 +23,11 @@ class Fraction extends Divisor
         $this->e = new Euclid();
     }
 
+    /**
+     * judges if the fruction is reduced or not
+     * @param
+     * @return  boolean
+     */
     public function isReduced()
     {
         return 1 === $this->numerator && 1 === $this->denominator
@@ -31,6 +36,11 @@ class Fraction extends Divisor
                ;
     }
 
+    /**
+     * judges if the fruction is proper ot not
+     * @param
+     * @return  boolean
+     */
     public function isProper()
     {
         return !is_null($this->wholeNumbers)
@@ -43,6 +53,11 @@ class Fraction extends Divisor
                ;
     }
 
+    /**
+     * judges if the fraction is improper or not
+     * @param
+     * @return  boolean
+     */
     public function isImproper()
     {
         return !is_null($this->wholeNumbers)
@@ -55,16 +70,28 @@ class Fraction extends Divisor
                ;
     }
 
+    /**
+     * judges if the fraction is mixed or not
+     * @param
+     * @return  boolean
+     */
     public function isMixed()
     {
-        return $this->wholeNumbers > 0;
+        return $this->wholeNumbers > 0 || $this->wholeNumbers < 0;
     }
 
+    /**
+     * reduces fraction
+     * @param
+     * @return self
+     */
     public function reduce()
     {
-        $r = $this->reduceFraction($this->numerator, $this->denominator);
-        $this->numerator = $r[0];
-        $this->denominator = $r[1];
+        if ($this->numerator > 0 && $this->denominator > 0) {
+            $r = $this->reduceFraction($this->numerator, $this->denominator);
+            $this->numerator = $r[0];
+            $this->denominator = $r[1];
+        }
         return $this;
     }
 
