@@ -2,25 +2,54 @@
 
 namespace Macocci7\PhpMathInteger;
 
+use Macocci7\PhpMathInteger\Number;
 use Macocci7\PhpMathInteger\Divisor;
 use Macocci7\PhpMathInteger\Euclid;
+use Macocci7\PhpMathInteger\Multiple;
 
-class Fraction extends Divisor
+class Fraction extends Number
 {
+    /**
+     * (integer) whole numbers of the mixed fraction
+     */
     public $wholeNumbers;
 
+    /**
+     * (integer) numerator of the fraction
+     */
     public $numerator;
 
+    /**
+     * (integer) denominator of the fraction
+     */
     public $denominator;
 
-    private $e; // Macocci7\PhpMathInteger\Euclid
+    /**
+     * (class) instance of Macocci7\PhpMathInteger\Divisor
+     * - for operations related with divisors
+     */
+    private $d;
+
+    /**
+     * (class) instance of Macocci7\PhpMathInteger\Euclid
+     * - for operations related with Euclidean Algorithm
+     */
+    private $e;
+
+    /**
+     * (class) instance of Macocci7\PhpMathInteger\Multiple
+     * - for operations related with Multiple
+     */
+    private $m;
 
     /**
      * constructor
      */
     public function __construct()
     {
+        $this->d = new Divisor();
         $this->e = new Euclid();
+        $this->m = new Multiple();
     }
 
     /**
@@ -87,47 +116,186 @@ class Fraction extends Divisor
      */
     public function reduce()
     {
-        if ($this->numerator > 0 && $this->denominator > 0) {
-            $r = $this->reduceFraction($this->numerator, $this->denominator);
-            $this->numerator = $r[0];
-            $this->denominator = $r[1];
+        if ($this->numerator > 1 && $this->denominator > 1) {
+            $r = $this->d->reduceFraction(
+                $this->numerator,
+                $this->denominator
+            );
+            $this->numerator = $this->d->value($r[0]);
+            $this->denominator = $this->d->value($r[1]);
         }
         return $this;
     }
 
-    public function add()
+    /**
+     * reduces fractions to the common denominator
+     * @param   Macocci7\PhpMathInteger\Fraction    $f
+     * @return  self
+     */
+    public function toCommonDenominator(Fraction &$f)
     {
+        $cd = $this->m->leastCommonMultiple(
+            $this->denominator,
+            $f->denominator
+        );
+        $r1 = (int) ($cd / $this->denominator);
+        $r2 = (int) ($cd / $f->denominator);
+        $this->denominator = $cd;
+        $this->numerator *= $r1;
+        $f->denominator = $cd;
+        $f->numerator *= $r2;
+        return $this;
     }
 
-    public function substruct()
+    /**
+     * adds a fraction to this fraction
+     * @param
+     * @return  self
+     */
+    public function add(Fraction $f)
     {
+        if (0 === (int) $this->denominator || 0 === (int) $f->denominator) {
+            throw new \Exception('denominator must not be null nor zero.', 1);
+        }
+        $this->improper();
+        $f->improper();
+        $this->toCommonDenominator($f);
+        $this->numerator += $f->numerator;
+        $this->reduce();
+        return $this;
     }
 
-    public function multiply()
+    /**
+     * substructs a fraction from this fraction
+     * @param
+     * @return  self
+     */
+    public function substruct(Fraction $f)
     {
+        if (0 === (int) $this->denominator || 0 === (int) $f->denominator) {
+            throw new \Exception('denominator must not be null nor zero.', 1);
+        }
+        $this->improper();
+        $f->improper();
+        $this->toCommonDenominator($f);
+        $this->numerator -= $f->numerator;
+        $this->improper();
+        $sign = $this->numerator > 0 ? 1 : -1;
+        $this->numerator *= $sign;
+        $this->reduce();
+        $this->numerator *= $sign;
+        return $this;
     }
 
-    public function divide()
+    /**
+     * multiply this fraction by a fraction $f
+     * @param   Macocci7\PhpMathInteger\Fraction    $f
+     * @return  self
+     */
+    public function multiply(Fraction $f)
     {
+        if (0 === (int) $this->denominator || 0 === (int) $f->denominator) {
+            throw new \Exception('denominator must not be null nor zero.', 1);
+        }
+        $this->improper();
+        $this->reduce();
+        $f->improper();
+        $f->reduce();
+        $this->numerator *= $f->numerator;
+        $this->denominator *= $f->denominator;
+        $this->reduce();
+        return $this;
     }
 
+    /**
+     * divide this fraction by a fraction $f
+     * @param   Macocci7\PhpMathInteger\Fraction    $f
+     * @return  self
+     */
+    public function divide(Fraction $f)
+    {
+        if (0 === (int) $this->denominator || 0 === (int) $f->denominator) {
+            throw new \Exception('denominator must not be null nor zero.', 1);
+        }
+        if (0 === (int) $f->numerator) {
+            throw new \Exception('divisor must not be null nor zero.', 2);
+        }
+        $this->improper();
+        $this->reduce();
+        $f->improper();
+        $f->reduce();
+        $this->numerator *= $f->denominator;
+        $this->denominator *= $f->numerator;
+        $this->reduce();
+        return $this;
+    }
+
+    /**
+     * converts the fraction into a improper fraction
+     * @param
+     * @return  self
+     */
     public function improper()
     {
+        if (
+            $this->isNaturalAll(
+                [
+                    $this->wholeNumbers,
+                    $this->numerator,
+                    $this->denominator,
+                ]
+            )
+        ) {
+            $this->numerator += $this->wholeNumbers * $this->denominator;
+            $this->wholeNumbers = null;
+        }
+        return $this;
     }
 
+    /**
+     * converts the fraction into a mixed fraction
+     * @param
+     * @return  self
+     */
     public function mixed()
     {
+        if (
+            $this->isNaturalAll(
+                [
+                    $this->numerator,
+                    $this->denominator,
+                ]
+            )
+        ) {
+            $w = (int) ($this->numerator / $this->denominator);
+            $this->wholeNumbers += $w;
+            $this->numerator -= $w * $this->denominator;
+        }
+        return $this;
     }
 
-    public function words()
+    /**
+     * returns the value as a integer
+     * @param
+     * @return  integer
+     */
+    public function int()
     {
+        return (int) $this->wholeNumbers;
     }
 
-    public function wordsWithOver()
+    /**
+     * returns the value as a float
+     * @param
+     * @return  float
+     */
+    public function float()
     {
-    }
-
-    public function wordsWithDivided()
-    {
+        return 0 === (int) $this->denominator
+               ? null // numbers must not be divided by zero
+               : (float) (
+                    (int) $this->wholeNumbers
+                    + (int) $this->numerator / (int) $this->denominator
+               );
     }
 }

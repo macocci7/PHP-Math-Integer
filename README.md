@@ -22,8 +22,10 @@ composer require macocci7/php-math-integer
 - Number
 - Prime
 - Divisor
-- Euclid (Algorithm)
+- Multiple
+- Euclid (Euclidean Algorithm)
 - Fraction
+- Bezout (Bezout's Equation)
 
 ## License
 
@@ -33,6 +35,6 @@ composer require macocci7/php-math-integer
 
 *Document Created: 2023/10/19*
 
-*Document Updated: 2023/11/01*
+*Document Updated: 2023/11/04*
 
 Copyright 2023 macocci7
