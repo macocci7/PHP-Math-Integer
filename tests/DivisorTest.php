@@ -42,6 +42,33 @@ final class DivisorTest extends TestCase
         }
     }
 
+    public function test_value_can_return_value_correctly(): void
+    {
+        $cases = [
+            ['f' => [], 'expect' => null, ],
+            ['f' => [null], 'expect' => null, ],
+            ['f' => [0], 'expect' => null, ],
+            ['f' => [ 1 => 0, ], 'expect' => 1, ],
+            ['f' => [ 1 => 1, ], 'expect' => 1, ],
+            ['f' => [ 2 => 0, ], 'expect' => 1, ],
+            ['f' => [ 2 => 1, ], 'expect' => 2, ],
+            ['f' => [ 2 => 2, ], 'expect' => 4, ],
+            ['f' => [ 2 => 3, ], 'expect' => 8, ],
+            ['f' => [ 3 => 0, ], 'expect' => 1, ],
+            ['f' => [ 3 => 1, ], 'expect' => 3, ],
+            ['f' => [ 3 => 2, ], 'expect' => 9, ],
+            ['f' => [ 3 => 3, ], 'expect' => 27, ],
+            ['f' => [ 2 => 0, 3 => 0, ], 'expect' => 1, ],
+            ['f' => [ 2 => 1, 3 => 1, ], 'expect' => 6, ],
+            ['f' => [ 2 => 2, 3 => 2, ], 'expect' => 36, ],
+            ['f' => [ 2 => 3, 3 => 4, ], 'expect' => 648, ],
+        ];
+        $d = new Divisor();
+        foreach ($cases as $case) {
+            $this->assertSame($case['expect'], $d->value($case['f']));
+        }
+    }
+
     public function test_list_can_list_divisors_correctly(): void
     {
         $cases = [
@@ -188,6 +215,7 @@ final class DivisorTest extends TestCase
             ['n1' => 1, 'n2' => 1, 'expect' => null, ],
             ['n1' => 2, 'n2' => 1, 'expect' => null, ],
             ['n1' => 1, 'n2' => 2, 'expect' => null, ],
+            ['n1' => 2, 'n2' => 2, 'expect' => [[1 => 1], [1 => 1], ], ],
             ['n1' => 4, 'n2' => 4, 'expect' => [[1 => 1], [1 => 1], ], ],
             ['n1' => 30, 'n2' => 45, 'expect' => [[2 => 1], [3 => 1], ], ],
             ['n1' => 8, 'n2' => 18, 'expect' => [[2 => 2], [3 => 2], ], ],

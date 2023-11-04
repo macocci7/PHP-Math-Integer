@@ -37,18 +37,59 @@ class Divisor extends Prime
     }
 
     /**
-     * calculates divisors
+     * retrun value from factors
+     * @param   array   $factors
+     * @return  integer|null
+     */
+    public function value(array $factors)
+    {
+        if (empty($factors)) {
+            return;
+        }
+        /**
+         * the structure of $factors must be as follows
+         * array [
+         *      radix1 => exp1,
+         *      radix2 => exp2,
+         *      ...,
+         * ]
+         *
+         * ex)
+         * [
+         *      2 => 3,
+         *      3 => 2,
+         *      5 => 1,
+         * ]
+         *
+         * this factors results in:
+         *
+         * (2 ** 3) * (3 ** 2) * (5 ** 1)
+         * = 8 * 9 * 5
+         * = 360
+         */
+        $v = 1;
+        foreach ($factors as $radix => $exp) {
+            if ($radix === 0) {
+                return;
+            }
+            $v *= $radix ** $exp;
+        }
+        return $v;
+    }
+
+    /**
+     * calculates divisors recursively
      * @param   integer $v
      * @param   integer $k
      * @param   array   $e
      * @param   array   $m
      * @return  void
      */
-    public function calc(int $v, int $k, array $e, array $m)
+    public function calcR(int $v, int $k, array $e, array $m)
     {
         for ($i = 0; $i <= $m[$e[$k]]; $i++) {
             if ($k > 0) {
-                $this->calc($v * ($e[$k] ** $i), $k - 1, $e, $m);
+                $this->calcR($v * ($e[$k] ** $i), $k - 1, $e, $m);
             } else {
                 $this->divisors[] = $v * ($e[$k] ** $i);
             }
@@ -73,7 +114,7 @@ class Divisor extends Prime
         $e = array_keys($m);
         $this->divisors = [];
         if ($n > 1) {
-            $this->calc(1, count($e) - 1, $e, $m);
+            $this->calcR(1, count($e) - 1, $e, $m);
         } else {
             $this->divisors[] = 1;
         }
@@ -123,6 +164,12 @@ class Divisor extends Prime
         return $cf;
     }
 
+    /**
+     * returns the greatest common factor
+     * @param   integer $n1
+     * @param   integer $n2
+     * @return  integer|null
+     */
     public function greatestCommonFactor(int $n1, int $n2)
     {
         if ($n1 < 1 || $n2 < 1) {
@@ -140,6 +187,12 @@ class Divisor extends Prime
         return $ncf;
     }
 
+    /**
+     * returns common divisors
+     * @param   integer $n1
+     * @param   integer $n2
+     * @return  array
+     */
     public function commonDivisors(int $n1, int $n2)
     {
         if ($n1 < 1 || $n2 < 1) {
@@ -169,12 +222,15 @@ class Divisor extends Prime
                 }
             }
         }
-        if (empty($d1)) {
-            $d1 = [ 1 => 1, ];
-        }
-        return $d1;
+        return empty($d1) ? [ 1 => 1, ] : $d1;
     }
 
+    /**
+     * reduces fraction
+     * @param   integer $n1
+     * @param   integer $n2
+     * @return  array|null
+     */
     public function reduceFraction(int $n1, int $n2)
     {
         if ($n1 < 2 || $n2 < 2) {
