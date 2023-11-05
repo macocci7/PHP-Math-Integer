@@ -1,0 +1,69 @@
+bool(true)
+bool(true)
+int(7)
+array(3) {
+  [0]=>
+  int(7)
+  [1]=>
+  int(11)
+  [2]=>
+  int(13)
+}
+array(3) {
+  [0]=>
+  array(2) {
+    [0]=>
+    int(2)
+    [1]=>
+    int(12)
+  }
+  [1]=>
+  array(2) {
+    [0]=>
+    int(2)
+    [1]=>
+    int(6)
+  }
+  [2]=>
+  array(2) {
+    [0]=>
+    NULL
+    [1]=>
+    int(3)
+  }
+}
+array(3) {
+  [0]=>
+  int(2)
+  [1]=>
+  int(2)
+  [2]=>
+  int(3)
+}
+array(2) {
+  [2]=>
+  int(3)
+  [3]=>
+  int(2)
+}
+array(2) {
+  ["factors"]=>
+  array(2) {
+    [0]=>
+    array(2) {
+      ["base"]=>
+      int(2)
+      ["exp"]=>
+      int(3)
+    }
+    [1]=>
+    array(2) {
+      ["base"]=>
+      int(3)
+      ["exp"]=>
+      int(2)
+    }
+  }
+  ["formula"]=>
+  string(13) "2 ^ 3 * 3 ^ 2"
+}

@@ -178,7 +178,26 @@ final class NumberTest extends TestCase
         }
     }
 
-    public function test_getSign_can_get_sign_correctly(): void
+    public function test_isFractionAll_can_judge_correctly(): void
+    {
+        $cases = [
+            ['param' => [], 'expect' => false, ],
+            ['param' => [0.1, ], 'expect' => true, ],
+            ['param' => [1.1, ], 'expect' => false, ],
+            ['param' => [1, ], 'expect' => false, ],
+            ['param' => [-1.0, ], 'expect' => false, ],
+            ['param' => [1.0, ], 'expect' => false, ],
+            ['param' => [-0.99, 0.2, 0.99, ], 'expect' => true, ],
+            ['param' => ["0.1"], 'expect' => false, ],
+            ['param' => [0.1, "0.1"], 'expect' => false, ],
+        ];
+        $n = new Number();
+        foreach ($cases as $case) {
+            $this->assertSame($n->isFractionAll($case['param']), $case['expect']);
+        }
+    }
+
+    public function test_sign_can_return_sign_correctly(): void
     {
         $cases = [
             ['param' => null, 'expect' => null, ],
@@ -195,53 +214,41 @@ final class NumberTest extends TestCase
         ];
         $n = new Number();
         foreach ($cases as $case) {
-            $this->assertSame($n->getSign($case['param']), $case['expect']);
+            $this->assertSame($n->sign($case['param']), $case['expect']);
         }
     }
 
-    public function test_getInt_can_get_int_correctly(): void
+    public function test_int_can_return_int_correctly(): void
     {
         $cases = [
-            ['param' => null, 'expect' => null, ],
-            ['param' => true, 'expect' => null, ],
-            ['param' => false, 'expect' => null, ],
-            ['param' => "1.2", 'expect' => null, ],
-            ['param' => [1.2], 'expect' => null, ],
-            ['param' => 0, 'expect' => 0, ],
-            ['param' => 2, 'expect' => 2, ],
-            ['param' => -2, 'expect' => -2, ],
+            ['param' => 0.3, 'expect' => 0, ],
+            ['param' => -0.3, 'expect' => 0, ],
             ['param' => 2.3, 'expect' => 2, ],
             ['param' => -2.3, 'expect' => -2, ],
         ];
         $n = new Number();
         foreach ($cases as $case) {
-            $this->assertSame($n->getInt($case['param']), $case['expect']);
+            $this->assertSame($n->int($case['param']), $case['expect']);
         }
     }
 
-    public function test_getFraction_can_get_fraction_correctly(): void
+    public function test_fraction_can_return_fraction_correctly(): void
     {
         $cases = [
-            ['param' => null, 'expect' => null, ],
-            ['param' => true, 'expect' => null, ],
-            ['param' => false, 'expect' => null, ],
-            ['param' => "1.2", 'expect' => null, ],
-            ['param' => [1.2], 'expect' => null, ],
-            ['param' => 0, 'expect' => 0.0, ],
-            ['param' => 1, 'expect' => 0.0, ],
             ['param' => 1.2, 'expect' => (1.2 - 1), ],
             ['param' => 0.1, 'expect' => 0.1, ],
-            ['param' => -1, 'expect' => 0.0, ],
             ['param' => -1.2, 'expect' => (-1.2 + 1), ],
             ['param' => -0.1, 'expect' => -0.1, ],
+            ['param' => -1.0, 'expect' => 0.0, ],
+            ['param' => .1, 'expect' => 0.1, ],
         ];
         $n = new Number();
         foreach ($cases as $case) {
-            $this->assertSame($n->getFraction($case['param']), $case['expect']);
+            $this->assertSame($n->fraction($case['param']), $case['expect']);
         }
     }
 
-    public function test_getNthDigit_can_get_digit_correctly(): void
+    public function test_nthDigit_can_return_digit_correctly(): void
     {
         $cases = [
             ['nth' => 0, 'number' => null, 'expect' => null, ],
@@ -263,7 +270,7 @@ final class NumberTest extends TestCase
         $n = new Number();
         foreach ($cases as $case) {
             $this->assertSame(
-                $n->getNthDigit(
+                $n->nthDigit(
                     $case['nth'],
                     $case['number'],
                 ),
@@ -272,7 +279,7 @@ final class NumberTest extends TestCase
         }
     }
 
-    public function test_getNumberOfDigits_can_get_number_of_digits_correctly(): void
+    public function test_numberOfDigits_can_return_number_of_digits_correctly(): void
     {
         $cases = [
             ['param' => null, 'expect' => null, ],
@@ -297,21 +304,13 @@ final class NumberTest extends TestCase
         ];
         $n = new Number();
         foreach ($cases as $case) {
-            $this->assertSame($n->getNumberOfDigits($case['param']), $case['expect']);
+            $this->assertSame($n->numberOfDigits($case['param']), $case['expect']);
         }
     }
 
-    public function test_getNumberOfFractionalDigits_can_get_number_correctly(): void
+    public function test_numberOfFractionalDigits_can_return_number_correctly(): void
     {
         $cases = [
-            ['param' => null, 'expect' => null, ],
-            ['param' => true, 'expect' => null, ],
-            ['param' => false, 'expect' => null, ],
-            ['param' => "123.4567", 'expect' => null, ],
-            ['param' => [123.4567], 'expect' => null, ],
-            ['param' => 0, 'expect' => 0, ],
-            ['param' => 1, 'expect' => 0, ],
-            ['param' => -1, 'expect' => 0, ],
             ['param' => 0.0, 'expect' => 0, ],
             ['param' => 1.0, 'expect' => 0, ],
             ['param' => 0.1, 'expect' => 1, ],
@@ -325,7 +324,7 @@ final class NumberTest extends TestCase
         $n = new Number();
         foreach ($cases as $case) {
             $this->assertSame(
-                $n->getNumberOfFractionalDigits($case['param']),
+                $n->numberOfFractionalDigits($case['param']),
                 $case['expect']
             );
         }
