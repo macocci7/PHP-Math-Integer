@@ -13,13 +13,21 @@ var_dump(
     $p->between(6, 14),
     $p->factors(12), // = 2 * 2 * 3
     $p->countSameElements($p->factors(72)), // = (2 ** 3) * (3 ** 2)
-    $p->factorizedFormula(72),
 );
 
 // factorize
-$r = $p->factorize(1234567890);
-$s = str_repeat(' ', strlen((string) max(array_column($r, 0))) + 1);
-$b = $s . str_repeat('-', strlen(max(array_column($r, 1))));
+$n = 1234567890;
+$r = $p->factorize($n);
+$l1 = $p->numberOfDigits(max(array_column($r, 0)));
+$l2 = $p->numberOfDigits(max(array_column($r, 1)));
+$s = str_repeat(' ', $l1 + 1);
+$b = $s . str_repeat('-', $l2);
 foreach ($r as $f) {
-    echo ($f[0] ? $f[0] . ")" . $f[1] . "\n" . $b . "\n" : $s . $f[1] . "\n");
+    echo (
+        $f[0]
+        ? sprintf("%" . $l1 . "d)%" . $l2 . "d\n%s\n", $f[0], $f[1], $b)
+        : sprintf("%s%" . $l2 . "d\n", $s, $f[1])
+    );
 }
+
+echo $n . " = " . $p->factorizedFormula($n)['formula'] . "\n";
