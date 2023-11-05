@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Examples of operation with
+ * Macocci7\PhpMathInteger\Number
+ */
+
 require_once('../src/loader.php');
 
 use Macocci7\PhpMathInteger\Number;
