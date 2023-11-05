@@ -68,11 +68,11 @@ class Bezout extends Euclid
             $r['processData'][] = [ 's' => $s, 't' => $t, ];
             $r['solution'] = [
                 'x' => $na1 >= $na2
-                       ? $s * $this->getSign($this->a) * $this->c
-                       : $t * $this->getSign($this->a) * $this->c,
+                       ? $s * $this->sign($this->a) * $this->c
+                       : $t * $this->sign($this->a) * $this->c,
                 'y' => $na1 >= $na2
-                       ? $t * $this->getSign($this->b) * $this->c
-                       : $s * $this->getSign($this->b) * $this->c,
+                       ? $t * $this->sign($this->b) * $this->c
+                       : $s * $this->sign($this->b) * $this->c,
             ];
         }
         return $r;

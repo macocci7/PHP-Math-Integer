@@ -7,7 +7,7 @@ use Macocci7\PhpMathInteger\Divisor;
 use Macocci7\PhpMathInteger\Euclid;
 use Macocci7\PhpMathInteger\Multiple;
 
-class Fraction extends Number
+class Fraction
 {
     /**
      * (integer) whole numbers of the mixed fraction
@@ -23,6 +23,12 @@ class Fraction extends Number
      * (integer) denominator of the fraction
      */
     public $denominator;
+
+    /**
+     * (class) instance of Macocci7\PhpMathInteger\Number
+     * - for operations related with numbers
+     */
+    private $n;
 
     /**
      * (class) instance of Macocci7\PhpMathInteger\Divisor
@@ -47,6 +53,7 @@ class Fraction extends Number
      */
     public function __construct()
     {
+        $this->n = new Number();
         $this->d = new Divisor();
         $this->e = new Euclid();
         $this->m = new Multiple();
@@ -238,7 +245,7 @@ class Fraction extends Number
     public function improper()
     {
         if (
-            $this->isNaturalAll(
+            $this->n->isNaturalAll(
                 [
                     $this->wholeNumbers,
                     $this->numerator,
@@ -260,7 +267,7 @@ class Fraction extends Number
     public function mixed()
     {
         if (
-            $this->isNaturalAll(
+            $this->n->isNaturalAll(
                 [
                     $this->numerator,
                     $this->denominator,
