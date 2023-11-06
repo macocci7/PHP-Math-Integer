@@ -1,49 +1,11 @@
-The Greatest Common Divisor of 390 and 273 is 39.array(3) {
-  ["gcd"]=>
-  int(39)
-  ["processText"]=>
-  array(3) {
-    [0]=>
-    string(19) "390 = 273 * 1 + 117"
-    [1]=>
-    string(18) "273 = 117 * 2 + 39"
-    [2]=>
-    string(16) "117 = 39 * 3 + 0"
-  }
-  ["processData"]=>
-  array(3) {
-    [0]=>
-    array(4) {
-      ["a"]=>
-      int(390)
-      ["b"]=>
-      int(273)
-      ["c"]=>
-      int(1)
-      ["r"]=>
-      int(117)
-    }
-    [1]=>
-    array(4) {
-      ["a"]=>
-      int(273)
-      ["b"]=>
-      int(117)
-      ["c"]=>
-      int(2)
-      ["r"]=>
-      int(39)
-    }
-    [2]=>
-    array(4) {
-      ["a"]=>
-      int(117)
-      ["b"]=>
-      int(39)
-      ["c"]=>
-      int(3)
-      ["r"]=>
-      int(0)
-    }
-  }
-}
+Is 39 GCD(390, 273)? - Yes.
+Euclidean Algorrith:
+390 = 273 * 1 + 117
+273 = 117 * 2 + 39
+117 = 39 * 3 + 0
+Remainders can be expressed as:
+117 = 390 - 273 * 1
+39 = 273 - 117 * 2
+0 = 117 - 39 * 3
+Are 390 and 273 coprime? - No.
+Because the Greatest Common Divisor of 390 and 273 is 39.

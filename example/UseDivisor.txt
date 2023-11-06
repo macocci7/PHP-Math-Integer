@@ -1,0 +1,8 @@
+12 has 6 divisors.
+[1, 2, 3, 4, 6, 12]
+12 = 2 ^ 2 * 3
+18 = 2 * 3 ^ 2
+common factors : 2 * 3
+common divisors : [1, 2, 3, 6]
+greatest common factor (divisor) : 6
+12/18 reduces to 2/3
