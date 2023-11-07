@@ -1,5 +1,5 @@
 Is 39 GCD(390, 273)? - Yes.
-Euclidean Algorrith:
+Euclidean Algorithm:
 390 = 273 * 1 + 117
 273 = 117 * 2 + 39
 117 = 39 * 3 + 0

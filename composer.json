@@ -1,4 +1,21 @@
 {
+    "name": "macocci7/php-math-integer",
+    "version": "1.0.0",
+    "description": "PHP Math Library of the subjects of number theory(only natural number).",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Macocci7\\PhpMathInteger\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "macocci7",
+            "email": "macocci7@yahoo.co.jp"
+        }
+    ],
+    "minimum-stability": "stable",
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7"
     }

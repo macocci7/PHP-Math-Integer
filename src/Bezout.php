@@ -17,8 +17,67 @@ class Bezout extends Euclid
     /**
      * constructor
      */
-    public function __construct()
+    public function __construct(array $c = [])
     {
+        $this->set($c);
+    }
+
+    /**
+     * sets coefficients of a Bezout Equation
+     * @param   array   $c
+     * @return  self
+     */
+    public function set(array $c = [])
+    {
+        if (count($c) !== 3) {
+            $this->clear();
+            return;
+        }
+        foreach ($c as $v) {
+            if (!$this->isInt($v)) {
+                $this->clear();
+                return;
+            }
+        }
+        if ($c[0] === 0 || $c[1] === 0) {
+            $this->clear();
+            return;
+        }
+        $this->a = $c[0];
+        $this->b = $c[1];
+        $this->c = $c[2];
+        return $this;
+    }
+
+    /**
+     * clears coefficients of Bezout Equation
+     * @param
+     * @return self
+     */
+    public function clear()
+    {
+        $this->a = null;
+        $this->b = null;
+        $this->c = null;
+        return $this;
+    }
+
+    /**
+     * returns Bezout's equation
+     * @param
+     * @return  string
+     */
+    public function equation()
+    {
+        return $this->isIntAll([$this->a, $this->b, $this->c, ])
+            ? sprintf(
+                "%sx %s %sy = %d",
+                $this->a === 1 ? '' : ($this->a === -1 ? '-' : $this->a),
+                $this->b > 0 ? '+' : '-',
+                abs($this->b) === 1 ? '' : abs($this->b),
+                $this->c
+            )
+            : null;
     }
 
     /**
