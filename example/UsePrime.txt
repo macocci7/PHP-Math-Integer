@@ -1,28 +1,8 @@
-bool(true)
-bool(true)
-int(7)
-array(3) {
-  [0]=>
-  int(7)
-  [1]=>
-  int(11)
-  [2]=>
-  int(13)
-}
-array(3) {
-  [0]=>
-  int(2)
-  [1]=>
-  int(2)
-  [2]=>
-  int(3)
-}
-array(2) {
-  [2]=>
-  int(3)
-  [3]=>
-  int(2)
-}
+Is 3 prime? - Yes.
+Are all of [2, 3, 5] prime? - Yes.
+A prime next to 5 is 7.
+Primes between 6 and 14 are [7, 11, 13].
+Factorize 1234567890:
    2)1234567890
      ----------
    3) 617283945

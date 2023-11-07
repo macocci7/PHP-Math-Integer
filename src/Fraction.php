@@ -51,12 +51,35 @@ class Fraction
     /**
      * constructor
      */
-    public function __construct()
+    public function __construct(string $s = null)
     {
         $this->n = new Number();
         $this->d = new Divisor();
         $this->e = new Euclid();
         $this->m = new Multiple();
+        $this->set($s);
+    }
+
+    /**
+     * sets values
+     * @param   string  $s
+     * @return  self
+     */
+    public function set(string $s = null)
+    {
+        if (is_null($s)) {
+            return;
+        }
+        if (preg_match("/^(\d+)\/(\d+)$/", $s, $m)) {
+            $this->wholeNumbers = null;
+            $this->numerator = (int) $m[1];
+            $this->denominator = (int) $m[2];
+        } elseif (preg_match("/^(\d+) (\d+)\/(\d+)$/", $s, $m)) {
+            $this->wholeNumbers = (int) $m[1];
+            $this->numerator = (int) $m[2];
+            $this->denominator = (int) $m[3];
+        }
+        return $this;
     }
 
     /**
@@ -304,5 +327,19 @@ class Fraction
                     (int) $this->wholeNumbers
                     + (int) $this->numerator / (int) $this->denominator
                );
+    }
+
+    /**
+     * returns the fraction as one-line-text
+     * @param
+     * @return  string|null
+     */
+    public function text()
+    {
+        if (is_null($this->numerator) || is_null($this->denominator)) {
+            return;
+        }
+        return ($this->wholeNumbers ? $this->wholeNumbers . ' ' : '')
+               . $this->numerator . '/' . $this->denominator;
     }
 }

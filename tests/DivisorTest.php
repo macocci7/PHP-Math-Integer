@@ -69,6 +69,44 @@ final class DivisorTest extends TestCase
         }
     }
 
+    public function test_formula_can_return_formula_correctly(): void
+    {
+        $cases = [
+            ['n' => -10, 'expect' => null, ],
+            ['n' => -1, 'expect' => null, ],
+            ['n' => 0, 'expect' => null, ],
+            ['n' => 1, 'expect' => '1', ],
+            ['n' => 2, 'expect' => '2', ],
+            ['n' => 3, 'expect' => '3', ],
+            ['n' => 4, 'expect' => '2 ^ 2', ],
+            ['n' => 5, 'expect' => '5', ],
+            ['n' => 6, 'expect' => '2 * 3', ],
+            ['n' => 7, 'expect' => '7', ],
+            ['n' => 8, 'expect' => '2 ^ 3', ],
+            ['n' => 9, 'expect' => '3 ^ 2', ],
+            ['n' => 10, 'expect' => '2 * 5', ],
+            ['n' => 11, 'expect' => '11', ],
+            ['n' => 12, 'expect' => '2 ^ 2 * 3', ],
+            ['n' => 13, 'expect' => '13', ],
+            ['n' => 14, 'expect' => '2 * 7', ],
+            ['n' => 15, 'expect' => '3 * 5', ],
+            ['n' => 16, 'expect' => '2 ^ 4', ],
+            ['n' => 17, 'expect' => '17', ],
+            ['n' => 18, 'expect' => '2 * 3 ^ 2', ],
+            ['n' => 19, 'expect' => '19', ],
+            ['n' => 20, 'expect' => '2 ^ 2 * 5', ],
+            ['n' => 21, 'expect' => '3 * 7', ],
+            ['n' => 22, 'expect' => '2 * 11', ],
+            ['n' => 23, 'expect' => '23', ],
+            ['n' => 24, 'expect' => '2 ^ 3 * 3', ],
+            ['n' => 36, 'expect' => '2 ^ 2 * 3 ^ 2', ],
+        ];
+        $d = new Divisor();
+        foreach ($cases as $case) {
+            $this->assertSame($case['expect'], $d->formula($case['n']));
+        }
+    }
+
     public function test_list_can_list_divisors_correctly(): void
     {
         $cases = [

@@ -17,6 +17,27 @@ use Macocci7\PhpMathInteger\Fraction;
 
 final class FractionTest extends TestCase
 {
+    public function test_set_can_set_values_correctly(): void
+    {
+        $cases = [
+            ['param' => null, 'expect' => ['w' => null, 'n' => null, 'd' => null, ], ],
+            ['param' => '', 'expect' => ['w' => null, 'n' => null, 'd' => null, ], ],
+            ['param' => '1/2', 'expect' => ['w' => null, 'n' => 1, 'd' => 2, ], ],
+            ['param' => '1 2/3', 'expect' => ['w' => 1, 'n' => 2, 'd' => 3, ], ],
+            ['param' => '4 3/2', 'expect' => ['w' => 4, 'n' => 3, 'd' => 2, ], ],
+            ['param' => '0 0/0', 'expect' => ['w' => 0, 'n' => 0, 'd' => 0, ], ],
+        ];
+        $f = new Fraction();
+        foreach ($cases as $case) {
+            $f->set($case['param']);
+            $this->assertTrue(
+                $f->wholeNumbers === $case['expect']['w']
+                && $f->numerator === $case['expect']['n']
+                && $f->denominator === $case['expect']['d']
+            );
+        }
+    }
+
     public function test_isReduced_can_judge_correctly(): void
     {
         $cases = [
@@ -662,6 +683,29 @@ final class FractionTest extends TestCase
             $f->numerator = $case['n'];
             $f->denominator = $case['d'];
             $this->assertSame($case['expect'], $f->float());
+        }
+    }
+
+    public function test_text_can_return_text_correctly(): void
+    {
+        $cases = [
+            ['w' => null, 'n' => null, 'd' => null, 'expect' => null, ],
+            ['w' => null, 'n' => null, 'd' => 1, 'expect' => null, ],
+            ['w' => null, 'n' => 1, 'd' => null, 'expect' => null, ],
+            ['w' => 1, 'n' => null, 'd' => null, 'expect' => null, ],
+            ['w' => 1, 'n' => 1, 'd' => null, 'expect' => null, ],
+            ['w' => 1, 'n' => null, 'd' => 1, 'expect' => null, ],
+            ['w' => null, 'n' => 1, 'd' => 1, 'expect' => '1/1', ],
+            ['w' => null, 'n' => 1, 'd' => 2, 'expect' => '1/2', ],
+            ['w' => 1, 'n' => 2, 'd' => 3, 'expect' => '1 2/3', ],
+            ['w' => 1, 'n' => 2, 'd' => 0, 'expect' => '1 2/0', ],
+        ];
+        $f = new Fraction();
+        foreach ($cases as $case) {
+            $f->wholeNumbers = $case['w'];
+            $f->numerator = $case['n'];
+            $f->denominator = $case['d'];
+            $this->assertSame($case['expect'], $f->text());
         }
     }
 }

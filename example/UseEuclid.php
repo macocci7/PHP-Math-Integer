@@ -26,7 +26,7 @@ echo sprintf(
 
 // Euclidean Algorithm
 $r = $e->run($a, $b);
-echo "Euclidean Algorrith:\n";
+echo "Euclidean Algorithm:\n";
 foreach ($r['processText'] as $t) {
     echo $t . "\n";
 }

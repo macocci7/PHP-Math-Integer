@@ -16,6 +16,67 @@ use Macocci7\PhpMathInteger\Bezout;
 
 final class BezoutTest extends TestCase
 {
+    public function test_set_can_set_coefficients_correctly(): void
+    {
+        $cases = [
+            ['param' => [], 'expect' => [null, null, null, ], ],
+            ['param' => [1], 'expect' => [null, null, null, ], ],
+            ['param' => [1, 2, ], 'expect' => [null, null, null, ], ],
+            ['param' => [1, 2, 3, ], 'expect' => [1, 2, 3, ], ],
+            ['param' => [1, 2, 3, 4, ], 'expect' => [null, null, null, ], ],
+            ['param' => [1, 2.5, 3, ], 'expect' => [null, null, null, ], ],
+            ['param' => [0, 1, 2, ], 'expect' => [null, null, null, ], ],
+            ['param' => [1, 0, 2, ], 'expect' => [null, null, null, ], ],
+            ['param' => [0, 0, 2, ], 'expect' => [null, null, null, ], ],
+            ['param' => [1, 2, 0, ], 'expect' => [1, 2, 0, ], ],
+        ];
+        foreach ($cases as $case) {
+            $b = new Bezout();
+            $b->set($case['param']);
+            $this->assertTrue(
+                $b->a === $case['expect'][0]
+                && $b->b === $case['expect'][1]
+                && $b->c === $case['expect'][2]
+            );
+        }
+    }
+
+    public function test_clear_can_clear_coeffecients_correctly(): void
+    {
+        $cases = [
+            ['preset' => [1, 2, 3], 'expect' => [null, null, null, ], ],
+        ];
+        foreach ($cases as $case) {
+            $b = new Bezout($case['preset']);
+            $b->clear();
+            $this->assertTrue(
+                $b->a === $case['expect'][0]
+                && $b->b === $case['expect'][1]
+                && $b->c === $case['expect'][2]
+            );
+        }
+    }
+
+    public function test_equation_can_return_equation_correctly(): void
+    {
+        $cases = [
+            ['preset' => [], 'expect' => null, ],
+            ['preset' => [1], 'expect' => null, ],
+            ['preset' => [1, 2, ], 'expect' => null, ],
+            ['preset' => [0, 1, 2, ], 'expect' => null, ],
+            ['preset' => [1, 0, 2, ], 'expect' => null, ],
+            ['preset' => [1, 2, 0, ], 'expect' => 'x + 2y = 0', ],
+            ['preset' => [1, 1, 2, ], 'expect' => 'x + y = 2', ],
+            ['preset' => [-1, -1, -2, ], 'expect' => '-x - y = -2', ],
+            ['preset' => [3, 4, 1, ], 'expect' => '3x + 4y = 1', ],
+            ['preset' => [-3, -4, -1, ], 'expect' => '-3x - 4y = -1', ],
+        ];
+        foreach ($cases as $case) {
+            $b = new Bezout($case['preset']);
+            $this->assertSame($case['expect'], $b->equation());
+        }
+    }
+
     public function test_isSolvable_can_judge_correctly(): void
     {
         $cases = [

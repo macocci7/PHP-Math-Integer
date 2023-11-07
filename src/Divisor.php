@@ -78,6 +78,26 @@ class Divisor extends Prime
     }
 
     /**
+     * returns the formula with prime factors of $n
+     * @param   integer $n
+     * @return  string|null
+     */
+    public function formula(int $n)
+    {
+        if (!$this->isNatural($n)) {
+            return;
+        }
+        if (1 === $n) {
+            return '1';
+        }
+        $f = [];
+        foreach ($this->countSameElements($this->factors($n)) as $r => $e) {
+            $f[] = $r . ($e > 1 ? ' ^ ' . $e : '');
+        }
+        return implode(' * ', $f);
+    }
+
+    /**
      * calculates divisors recursively
      * @param   integer $v
      * @param   integer $k
