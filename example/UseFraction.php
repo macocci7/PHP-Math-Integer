@@ -1,6 +1,6 @@
 <?php
 
-require_once('../src/loader.php');
+require_once('../vendor/autoload.php');
 
 use Macocci7\PhpMathInteger\Fraction;
 
