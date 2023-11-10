@@ -164,6 +164,9 @@ class Fraction
      */
     public function toCommonDenominator(Fraction &$f)
     {
+        if (0 === (int) $this->denominator || 0 === (int) $f->denominator) {
+            throw new \Exception('denominator must not be null nor zero.', 1);
+        }
         $cd = $this->m->leastCommonMultiple(
             $this->denominator,
             $f->denominator
