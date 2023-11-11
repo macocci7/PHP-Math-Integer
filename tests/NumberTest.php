@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Macocci7\PhpMathInteger;
 
 require_once('vendor/autoload.php');
-require_once('src/Number.php');
 
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Number;
 
 final class NumberTest extends TestCase
 {
-    public function test_isInteger_can_judge_correctly(): void
+    public function test_isInt_can_judge_correctly(): void
     {
         $cases = [
             ['param' => null, 'expect' => false, ],

@@ -5,12 +5,6 @@ declare(strict_types=1);
 namespace Macocci7\PhpMathInteger;
 
 require_once('vendor/autoload.php');
-require_once('src/Number.php');
-require_once('src/Prime.php');
-require_once('src/Divisor.php');
-require_once('src/Euclid.php');
-require_once('src/Multiple.php');
-require_once('src/Fraction.php');
 
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Fraction;
@@ -634,17 +628,34 @@ final class FractionTest extends TestCase
     public function test_int_can_return_integer_correctly(): void
     {
         $cases = [
-            ['w' => null, 'expect' => 0, ],
-            ['w' => -10, 'expect' => -10, ],
-            ['w' => -1, 'expect' => -1, ],
-            ['w' => 0, 'expect' => 0, ],
-            ['w' => 1, 'expect' => 1, ],
-            ['w' => 2, 'expect' => 2, ],
-            ['w' => 3, 'expect' => 3, ],
+            ['w' => null, 'n' => null, 'd' => null, 'expect' => null, ],
+            ['w' => 1, 'n' => null, 'd' => null, 'expect' => null, ],
+            ['w' => null, 'n' => 1, 'd' => null, 'expect' => null, ],
+            ['w' => null, 'n' => null, 'd' => 1, 'expect' => null, ],
+            ['w' => 1, 'n' => null, 'd' => 1, 'expect' => null, ],
+            ['w' => null, 'n' => 1, 'd' => 1, 'expect' => 1, ],
+            ['w' => 1, 'n' => 1, 'd' => null, 'expect' => null, ],
+            ['w' => 1, 'n' => 1, 'd' => 1, 'expect' => 2, ],
+            ['w' => 1, 'n' => 0, 'd' => 1, 'expect' => 1, ],
+            ['w' => null, 'n' => 1, 'd' => 2, 'expect' => 0, ],
+            ['w' => null, 'n' => 3, 'd' => 2, 'expect' => 1, ],
+            ['w' => -10, 'n' => 1, 'd' => 2, 'expect' => -10, ],
+            ['w' => -1, 'n' => 1, 'd' => 2, 'expect' => -1, ],
+            ['w' => 0, 'n' => 1, 'd' => 2, 'expect' => 0, ],
+            ['w' => 1, 'n' => 2, 'd' => 3, 'expect' => 1, ],
+            ['w' => 2, 'n' => 3, 'd' => 4, 'expect' => 2, ],
+            ['w' => 3, 'n' => 4, 'd' => 5, 'expect' => 3, ],
+            ['w' => -10, 'n' => 5, 'd' => 2, 'expect' => -12, ],
+            ['w' => -10, 'n' => -5, 'd' => 2, 'expect' => -8, ],
+            ['w' => -1, 'n' => 3, 'd' => 2, 'expect' => -2, ],
+            ['w' => -1, 'n' => -3, 'd' => 2, 'expect' => 0, ],
+            ['w' => -1, 'n' => -5, 'd' => 2, 'expect' => 1, ],
         ];
         $f = new Fraction();
         foreach ($cases as $case) {
             $f->wholeNumbers = $case['w'];
+            $f->numerator = $case['n'];
+            $f->denominator = $case['d'];
             $this->assertSame($case['expect'], $f->int());
         }
     }
