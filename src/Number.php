@@ -28,11 +28,12 @@ class Number
      */
     public function isIntAll(array $ns)
     {
-        $r = (int) (count($ns) > 0);
         foreach ($ns as $n) {
-            $r *= (int) $this->isInt($n);
+            if (!$this->isInt($n)) {
+                return false;
+            }
         }
-        return (bool) $r;
+        return count($ns) > 0;
     }
 
     /**
@@ -55,11 +56,12 @@ class Number
      */
     public function isNaturalAll(array $ns)
     {
-        $r = (int) (count($ns) > 0);
         foreach ($ns as $n) {
-            $r *= (int) $this->isNatural($n);
+            if (!$this->isNatural($n)) {
+                return false;
+            }
         }
-        return (bool) $r;
+        return count($ns) > 0;
     }
 
     /**
@@ -79,11 +81,12 @@ class Number
      */
     public function isFloatAll(array $ns)
     {
-        $r = (int) (count($ns) > 0);
         foreach ($ns as $n) {
-            $r *= (int) $this->isFloat($n);
+            if (!$this->isFloat($n)) {
+                return false;
+            }
         }
-        return (bool) $r;
+        return count($ns) > 0;
     }
 
     /**
@@ -103,11 +106,12 @@ class Number
      */
     public function isNumberAll(array $ns)
     {
-        $r = (int) (count($ns) > 0);
         foreach ($ns as $n) {
-            $r *= (int) $this->isNumber($n);
+            if (!$this->isNumber($n)) {
+                return false;
+            }
         }
-        return (bool) $r;
+        return count($ns) > 0;
     }
 
     /**
@@ -130,11 +134,12 @@ class Number
      */
     public function isFractionAll(array $ns)
     {
-        $r = (int) (count($ns) > 0);
         foreach ($ns as $n) {
-            $r *= (int) $this->isFraction($n);
+            if (!$this->isFraction($n)) {
+                return false;
+            }
         }
-        return (bool) $r;
+        return count($ns) > 0;
     }
 
     /**

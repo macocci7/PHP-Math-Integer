@@ -293,15 +293,13 @@ class Fraction
     public function mixed()
     {
         if (
-            $this->n->isNaturalAll(
-                [
-                    $this->numerator,
-                    $this->denominator,
-                ]
-            )
+            $this->n->isInt($this->numerator)
+            && $this->n->isNatural($this->denominator)
         ) {
             $w = (int) ($this->numerator / $this->denominator);
-            $this->wholeNumbers += $w;
+            $s = $this->n->sign($this->wholeNumbers);
+            $s = $s > 0 || $s < 0 ? $s : 1;
+            $this->wholeNumbers += $s * $w;
             $this->numerator -= $w * $this->denominator;
         }
         return $this;
@@ -314,7 +312,17 @@ class Fraction
      */
     public function int()
     {
-        return (int) $this->wholeNumbers;
+        $w = $this->wholeNumbers;
+        $n = $this->numerator;
+        $d = $this->denominator;
+        if (!$this->n->isInt($n) || !$this->n->isNatural($d)) {
+            return;
+        }
+        $i = $this->mixed()->wholeNumbers;
+        $this->wholeNumbers = $w;
+        $this->numerator = $n;
+        $this->denominator = $d;
+        return $i;
     }
 
     /**
