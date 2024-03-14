@@ -4,15 +4,20 @@ namespace Macocci7\PhpMathInteger;
 
 use Macocci7\PhpMathInteger\Euclid;
 
+/**
+ * class for treating matters of Bezout's identity
+ * @author  macocci7 <macocci7@yahoo.co.jp>
+ * @license MIT
+ */
 class Bezout extends Euclid
 {
     /**
-     * coefficients of a Bezout Equation
+     * coefficients of a Bezout's Identity
      * $a * x + $b * y = $c
      */
-    public $a;
-    public $b;
-    public $c;
+    public int $a;
+    public int $b;
+    public int $c;
 
     /**
      * constructor
@@ -23,25 +28,23 @@ class Bezout extends Euclid
     }
 
     /**
-     * sets coefficients of a Bezout Equation
-     * @param   array   $c
+     * sets coefficients of a Bezout's Identity
+     * @param   int[]   $c
      * @return  self
+     * @thrown  \Exception
      */
     public function set(array $c = [])
     {
         if (count($c) !== 3) {
-            $this->clear();
-            return;
+            throw new \Exception("Too few array elements. 3 expected.");
         }
         foreach ($c as $v) {
             if (!$this->isInt($v)) {
-                $this->clear();
-                return;
+                throw new \Exception("Invalid array element specified. Int expected.");
             }
         }
         if ($c[0] === 0 || $c[1] === 0) {
-            $this->clear();
-            return;
+            throw new \Exception("Zero specified.");
         }
         $this->a = $c[0];
         $this->b = $c[1];
@@ -50,7 +53,7 @@ class Bezout extends Euclid
     }
 
     /**
-     * clears coefficients of Bezout Equation
+     * clears coefficients of Bezout's Identity
      * @param
      * @return self
      */
@@ -63,11 +66,10 @@ class Bezout extends Euclid
     }
 
     /**
-     * returns Bezout's equation
-     * @param
-     * @return  string
+     * returns Bezout's identity
+     * @return  string|null
      */
-    public function equation()
+    public function identity()
     {
         return $this->isIntAll([$this->a, $this->b, $this->c, ])
             ? sprintf(
@@ -81,9 +83,8 @@ class Bezout extends Euclid
     }
 
     /**
-     * judges if the Bezout equation is solvable or not
-     * @param
-     * @return  boolean
+     * judges if the Bezout's identity is solvable or not
+     * @return  bool
      */
     public function isSolvable()
     {
@@ -102,14 +103,22 @@ class Bezout extends Euclid
     }
 
     /**
-     * returns a solution set of the Bezout equation
-     * @param
-     * @return  array|null
+     * returns a solution set of the Bezout's Identity
+     * @return  null|array{
+     *  processData: list<array{
+     *      s: int,
+     *      t: int,
+     *  }>,
+     *  solution: array{
+     *      x: int,
+     *      y: int,
+     *  },
+     * }
      */
     public function solution()
     {
         if (!$this->isSolvable()) {
-            return;
+            return null;
         }
         $e = $this->run(abs($this->a), abs($this->b));
         $pr = $e['processData'];
@@ -139,13 +148,37 @@ class Bezout extends Euclid
 
     /**
      * returns general solution of the Bezout equation
-     * @param
-     * @return  array|null
+     * @return  null|array{
+     *  solutionSet: array{
+     *      processData: list<array{
+     *          s: int,
+     *          t: int,
+     *      }>,
+     *      solution: array{
+     *          x: int,
+     *          y: int,
+     *      },
+     *  },
+     *  generalSolution: array{
+     *      x: array{
+     *          a: int,
+     *          b: int,
+     *      },
+     *      y: array{
+     *          a: int,
+     *          b: int,
+     *      },
+     *      formula: array{
+     *          x: string,
+     *          y: string,
+     *      },
+     *  },
+     * }
      */
     public function generalSolution()
     {
         if (!$this->isSolvable()) {
-            return;
+            return null;
         }
         $r = [];
         $r['solutionSet'] = $this->solution();

@@ -4,6 +4,11 @@ namespace Macocci7\PhpMathInteger;
 
 use Macocci7\PhpMathInteger\Prime;
 
+/**
+ * class for treating matters of Euclidean Algorithm
+ * @author  macocci7 <macocci7@yahoo.co.jp>
+ * @license MIT
+ */
 class Euclid extends Prime
 {
     /**
@@ -15,14 +20,18 @@ class Euclid extends Prime
 
     /**
      * runs Euclidean Algorithm and returns the result
-     * @param   integer $n1
-     * @param   integer $n2
-     * @return  array|null
+     * @param   int     $n1
+     * @param   int     $n2
+     * @return  null|array{
+     *  gcd: int,
+     *  processText: string[],
+     *  processData: list<array<string, int>>,
+     * }
      */
     public function run(int $n1, int $n2)
     {
         if (!$this->isNaturalAll([$n1, $n2])) {
-            return;
+            return null;
         }
         $result = [
             'gcd' => 1,
@@ -52,14 +61,14 @@ class Euclid extends Prime
 
     /**
      * returns gcd
-     * @param   integer $a
-     * @param   integer $b
-     * @return  integer|null;
+     * @param   int     $a
+     * @param   int     $b
+     * @return  int|null
      */
     public function gcd(int $a, int $b)
     {
         if (!$this->isNaturalAll([$a, $b])) {
-            return;
+            return null;
         }
         $r = $this->run($a, $b);
         return $r['gcd'];
@@ -67,10 +76,10 @@ class Euclid extends Prime
 
     /**
      * judges if the number $c is gcd of $a and $b or not
-     * @param   integer $c
-     * @param   integer $a
-     * @param   integer $b
-     * @return  boolean
+     * @param   int     $c
+     * @param   int     $a
+     * @param   int     $b
+     * @return  bool
      */
     public function isGcdOf(int $c, int $a, int $b)
     {
@@ -82,9 +91,9 @@ class Euclid extends Prime
 
     /**
      * judges if $a and $b are coprime or not
-     * @param   integer $a
-     * @param   integer $b
-     * @return  boolean
+     * @param   int     $a
+     * @param   int     $b
+     * @return  bool
      */
     public function isCoprime(int $a, int $b)
     {

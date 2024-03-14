@@ -7,46 +7,51 @@ use Macocci7\PhpMathInteger\Divisor;
 use Macocci7\PhpMathInteger\Euclid;
 use Macocci7\PhpMathInteger\Multiple;
 
+/**
+ * class for treating matters of fraction
+ * @author  macocci7 <macocci7@yahoo.co.jp>
+ * @license MIT
+ */
 class Fraction
 {
     /**
-     * (integer) whole numbers of the mixed fraction
+     * whole numbers of the mixed fraction
      */
-    public $wholeNumbers;
+    public int $wholeNumbers;
 
     /**
-     * (integer) numerator of the fraction
+     * numerator of the fraction
      */
-    public $numerator;
+    public int $numerator;
 
     /**
-     * (integer) denominator of the fraction
+     * denominator of the fraction
      */
-    public $denominator;
+    public int $denominator;
 
     /**
-     * (class) instance of Macocci7\PhpMathInteger\Number
+     * instance of Macocci7\PhpMathInteger\Number
      * - for operations related with numbers
      */
-    private $n;
+    private Number $n;
 
     /**
-     * (class) instance of Macocci7\PhpMathInteger\Divisor
+     * instance of Macocci7\PhpMathInteger\Divisor
      * - for operations related with divisors
      */
-    private $d;
+    private Divisor $d;
 
     /**
-     * (class) instance of Macocci7\PhpMathInteger\Euclid
+     * instance of Macocci7\PhpMathInteger\Euclid
      * - for operations related with Euclidean Algorithm
      */
-    private $e;
+    private Euclid $e;
 
     /**
-     * (class) instance of Macocci7\PhpMathInteger\Multiple
+     * instance of Macocci7\PhpMathInteger\Multiple
      * - for operations related with Multiple
      */
-    private $m;
+    private Multiple $m;
 
     /**
      * constructor
@@ -64,12 +69,10 @@ class Fraction
      * sets values
      * @param   string  $s
      * @return  self
+     * @thrown  \Exception
      */
-    public function set(string $s = null)
+    public function set(string $s)
     {
-        if (is_null($s)) {
-            return;
-        }
         if (preg_match("/^(\d+)\/(\d+)$/", $s, $m)) {
             $this->wholeNumbers = null;
             $this->numerator = (int) $m[1];
@@ -78,14 +81,15 @@ class Fraction
             $this->wholeNumbers = (int) $m[1];
             $this->numerator = (int) $m[2];
             $this->denominator = (int) $m[3];
+        } else {
+            throw new \Exception("Invalid string specified.");
         }
         return $this;
     }
 
     /**
      * judges if the fruction is reduced or not
-     * @param
-     * @return  boolean
+     * @return  bool
      */
     public function isReduced()
     {
@@ -97,8 +101,7 @@ class Fraction
 
     /**
      * judges if the fruction is proper ot not
-     * @param
-     * @return  boolean
+     * @return  bool
      */
     public function isProper()
     {
@@ -114,8 +117,7 @@ class Fraction
 
     /**
      * judges if the fraction is improper or not
-     * @param
-     * @return  boolean
+     * @return  bool
      */
     public function isImproper()
     {
@@ -131,8 +133,7 @@ class Fraction
 
     /**
      * judges if the fraction is mixed or not
-     * @param
-     * @return  boolean
+     * @return  bool
      */
     public function isMixed()
     {
@@ -141,7 +142,6 @@ class Fraction
 
     /**
      * reduces fraction
-     * @param
      * @return self
      */
     public function reduce()
@@ -161,6 +161,7 @@ class Fraction
      * reduces fractions to the common denominator
      * @param   Macocci7\PhpMathInteger\Fraction    $f
      * @return  self
+     * @thrown  \Exception
      */
     public function toCommonDenominator(Fraction &$f)
     {
@@ -182,8 +183,9 @@ class Fraction
 
     /**
      * adds a fraction to this fraction
-     * @param
+     * @param   Macocci7\PhpMathInteger\Fraction    $f
      * @return  self
+     * @thrown  \Exception
      */
     public function add(Fraction $f)
     {
@@ -200,8 +202,9 @@ class Fraction
 
     /**
      * substructs a fraction from this fraction
-     * @param
+     * @param   Macocci7\PhpMathInteger\Fraction    $f
      * @return  self
+     * @thrown  \Exception
      */
     public function substruct(Fraction $f)
     {
@@ -224,6 +227,7 @@ class Fraction
      * multiply this fraction by a fraction $f
      * @param   Macocci7\PhpMathInteger\Fraction    $f
      * @return  self
+     * @thrown  \Exception
      */
     public function multiply(Fraction $f)
     {
@@ -244,6 +248,7 @@ class Fraction
      * divide this fraction by a fraction $f
      * @param   Macocci7\PhpMathInteger\Fraction    $f
      * @return  self
+     * @thrown  \Exception
      */
     public function divide(Fraction $f)
     {
@@ -265,7 +270,6 @@ class Fraction
 
     /**
      * converts the fraction into a improper fraction
-     * @param
      * @return  self
      */
     public function improper()
@@ -287,7 +291,6 @@ class Fraction
 
     /**
      * converts the fraction into a mixed fraction
-     * @param
      * @return  self
      */
     public function mixed()
@@ -307,8 +310,7 @@ class Fraction
 
     /**
      * returns the value as a integer
-     * @param
-     * @return  integer
+     * @return  int|null
      */
     public function int()
     {
@@ -316,7 +318,7 @@ class Fraction
         $n = $this->numerator;
         $d = $this->denominator;
         if (!$this->n->isInt($n) || !$this->n->isNatural($d)) {
-            return;
+            return null;
         }
         $i = $this->mixed()->wholeNumbers;
         $this->wholeNumbers = $w;
@@ -327,8 +329,7 @@ class Fraction
 
     /**
      * returns the value as a float
-     * @param
-     * @return  float
+     * @return  float|null
      */
     public function float()
     {
@@ -342,13 +343,12 @@ class Fraction
 
     /**
      * returns the fraction as one-line-text
-     * @param
      * @return  string|null
      */
     public function text()
     {
         if (is_null($this->numerator) || is_null($this->denominator)) {
-            return;
+            return null;
         }
         return ($this->wholeNumbers ? $this->wholeNumbers . ' ' : '')
                . $this->numerator . '/' . $this->denominator;

@@ -4,6 +4,11 @@ namespace Macocci7\PhpMathInteger;
 
 use Macocci7\PhpMathInteger\Divisor;
 
+/**
+ * class for treating matters of multiples
+ * @author  macocci7 <macocci7@yahoo.co.jp>
+ * @license MIT
+ */
 class Multiple extends Divisor
 {
     /**
@@ -15,14 +20,14 @@ class Multiple extends Divisor
 
     /**
      * returns factors of the least common multiple
-     * @param   integer $n1
-     * @param   integer $n2
-     * @return  array|null
+     * @param   int     $n1
+     * @param   int     $n2
+     * @return  array<int, int>|null
      */
     public function leastCommonMultipleFactors(int $n1, int $n2)
     {
         if (!$this->isNaturalAll([$n1, $n2])) {
-            return;
+            return null;
         }
         $f1 = $this->factors($n1);
         $f2 = $this->factors($n2);
@@ -42,14 +47,14 @@ class Multiple extends Divisor
 
     /**
      * returns the least common multiple
-     * @param   integer $n1
-     * @param   integer $n2
-     * @return  integer|null
+     * @param   int     $n1
+     * @param   int     $n2
+     * @return  int|null
      */
     public function leastCommonMultiple(int $n1, int $n2)
     {
         if (!$this->isNaturalAll([$n1, $n2])) {
-            return;
+            return null;
         }
         $cm = $this->leastCommonMultipleFactors($n1, $n2);
         return is_array($cm) ? $this->value($cm) : $cm;
