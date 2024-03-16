@@ -16,6 +16,7 @@ class Euclid extends Prime
      */
     public function __construct()
     {
+        parent::__construct();
     }
 
     /**

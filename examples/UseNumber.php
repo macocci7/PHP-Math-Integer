@@ -1,31 +1,24 @@
 <?php
 
-/**
- * Examples of operation with
- * Macocci7\PhpMathInteger\Number
- */
-
- require_once('../vendor/autoload.php');
+require_once('../vendor/autoload.php');
 
 use Macocci7\PhpMathInteger\Number;
 
 $n = new Number();
 
-var_dump(
-    $n->isInt(1), // true
-    $n->isIntAll([ 1, 2, 3, ]), // true
-    $n->isNatural(1), // true
-    $n->isNaturalAll([ 1, 2, 3, ]), // true
-    $n->isFloat(1.2), // true
-    $n->isFloatAll([ -2.1, 0.0, 1.2, ]), // true
-    $n->isNumber(1.2), // true
-    $n->isNumberAll([ -2, 0.1, 3, ]), // true
-    $n->isFraction(0.1), // true
-    $n->isFractionAll([ -0.99, 0.1, 0.99]), // true
-    $n->sign(-2.5), // -1
-    $n->int(3.14), // 3
-    $n->fraction(3.14), // 0.1400...
-    $n->nthDigit(-3, 123.456), // 6
-    $n->numberOfDigits(-123.4567), // 3
-    $n->numberOfFractionalDigits(-12.3456), // 4
-);
+echo "Is 1 int? - " . ($n->isInt(1) ? 'Yes' : 'No') . ".\n";
+echo "Are [ 1, 2, 3, ] all int? - " . ($n->isIntAll([ 1, 2, 3, ]) ? 'Yes' : 'No') . ".\n";
+echo "Is 1 natural? - " . ($n->isNatural(1) ? 'Yes' : 'No') . ".\n";
+echo "Are [ 1, 2, 3, ] all natural? - " . ($n->isNaturalAll([ 1, 2, 3, ]) ? 'Yes' : 'No') . ".\n";
+echo "Is 1.2 float? - " . ($n->isFloat(1.2) ? 'Yes' : 'No') . ".\n";
+echo "Are [ -2.1, 0.0, 1.2, ] all float? - " . ($n->isFloatAll([ -2.1, 0.0, 1.2, ]) ? 'Yes' : 'No') . ".\n";
+echo "Is 1.2 number? - " . ($n->isNumber(1.2) ? 'Yes' : 'No') . ".\n";
+echo "Are [ -2, 0.1, 3, ] all number? - " . ($n->isNumberAll([ -2, 0.1, 3, ]) ? 'Yes' : 'No') . ".\n";
+echo "Is 0.1 fraction? - " . ($n->isFraction(0.1) ? 'Yes' : 'No') . ".\n";
+echo "Are [ -0.99, 0.1, 0.99, ] all fraction? - " . ($n->isFractionAll([ -0.99, 0.1, 0.99, ]) ? 'Yes' : 'No') . ".\n";
+echo "Sign of -2.5 is " . $n->sign(-2.5) . ".\n";
+echo "Integer part of 3.14 is " . $n->int(3.14) . ".\n";
+echo "Fractional part of 3.14 is " . $n->fraction(3.14) . ".\n";
+echo "-3th digit of 123.4567 is " . $n->nthDigit(-3, 123.4567) . ".\n";
+echo "Number of digits -123.4567 is " . $n->numberOfDigits(-123.4567) . ".\n";
+echo "Number of fractional digits -12.3456 is " . $n->numberOfFractionalDigits(-12.3456) . ".\n";

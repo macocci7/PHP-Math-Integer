@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # Script to Test and Lint
-# - for the repository: macocci7/php-scatterplot
+# - for the repository: macocci7/php-math-integer
 # requirement:
 # - phpenv/phpenv
 # - PHP versions defined in ../PHP_VERSIONS installed
@@ -34,9 +34,9 @@ test_and_lint() {
     echo "-----------------------------------------------------------"
     echo "[PHP $1][parallel-lint]"
     ./vendor/bin/parallel-lint src tests examples
-    echo "-----------------------------------------------------------"
-    echo "[PHP $1][neon-lint]"
-    ./vendor/nette/neon/bin/neon-lint conf
+    #echo "-----------------------------------------------------------"
+    #echo "[PHP $1][neon-lint]"
+    #./vendor/nette/neon/bin/neon-lint conf
     echo "-----------------------------------------------------------"
     echo "[PHP $1][phpcs]"
     ./vendor/bin/phpcs --ignore=vendor \

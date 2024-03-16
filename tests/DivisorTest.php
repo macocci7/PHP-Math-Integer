@@ -9,11 +9,15 @@ require_once('vendor/autoload.php');
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Divisor;
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ */
 final class DivisorTest extends TestCase
 {
-    public function test_count_can_count_correctly(): void
+    public static function provide_count_can_count_correctly(): array
     {
-        $cases = [
+        return [
             ['param' => -10, 'expect' => null, ],
             ['param' => -1, 'expect' => null, ],
             ['param' => 0, 'expect' => null, ],
@@ -33,15 +37,20 @@ final class DivisorTest extends TestCase
             ['param' => 36, 'expect' => 9, ],
             ['param' => 72, 'expect' => 12, ],
         ];
-        $d = new Divisor();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $d->count($case['param']));
-        }
     }
 
-    public function test_value_can_return_value_correctly(): void
+    /**
+     * @dataProvider provide_count_can_count_correctly
+     */
+    public function test_count_can_count_correctly(int $param, int|null $expect): void
     {
-        $cases = [
+        $d = new Divisor();
+        $this->assertSame($expect, $d->count($param));
+    }
+
+    public static function provide_value_can_return_value_correctly(): array
+    {
+        return [
             ['f' => [], 'expect' => null, ],
             ['f' => [null], 'expect' => null, ],
             ['f' => [0], 'expect' => null, ],
@@ -60,15 +69,20 @@ final class DivisorTest extends TestCase
             ['f' => [ 2 => 2, 3 => 2, ], 'expect' => 36, ],
             ['f' => [ 2 => 3, 3 => 4, ], 'expect' => 648, ],
         ];
-        $d = new Divisor();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $d->value($case['f']));
-        }
     }
 
-    public function test_formula_can_return_formula_correctly(): void
+    /**
+     * @dataProvider provide_value_can_return_value_correctly
+     */
+    public function test_value_can_return_value_correctly(array $f, int|null $expect): void
     {
-        $cases = [
+        $d = new Divisor();
+        $this->assertSame($expect, $d->value($f));
+    }
+
+    public static function provide_formula_can_return_formula_correctly(): array
+    {
+        return [
             ['n' => -10, 'expect' => null, ],
             ['n' => -1, 'expect' => null, ],
             ['n' => 0, 'expect' => null, ],
@@ -98,15 +112,20 @@ final class DivisorTest extends TestCase
             ['n' => 24, 'expect' => '2 ^ 3 * 3', ],
             ['n' => 36, 'expect' => '2 ^ 2 * 3 ^ 2', ],
         ];
-        $d = new Divisor();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $d->formula($case['n']));
-        }
     }
 
-    public function test_list_can_list_divisors_correctly(): void
+    /**
+     * @dataProvider provide_formula_can_return_formula_correctly
+     */
+    public function test_formula_can_return_formula_correctly(int $n, string|null $expect): void
     {
-        $cases = [
+        $d = new Divisor();
+        $this->assertSame($expect, $d->formula($n));
+    }
+
+    public static function provide_list_can_list_divisors_correctly(): array
+    {
+        return [
             ['param' => -10, 'expect' => null, ],
             ['param' => -1, 'expect' => null, ],
             ['param' => 0, 'expect' => null, ],
@@ -123,15 +142,20 @@ final class DivisorTest extends TestCase
             ['param' => 11, 'expect' => [1, 11, ], ],
             ['param' => 12, 'expect' => [1, 2, 3, 4, 6, 12, ], ],
         ];
-        $d = new Divisor();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $d->list($case['param']));
-        }
     }
 
-    public function test_commonFactors_can_return_common_factors_correctly(): void
+    /**
+     * @dataProvider provide_list_can_list_divisors_correctly
+     */
+    public function test_list_can_list_divisors_correctly(int $param, array|null $expect): void
     {
-        $cases = [
+        $d = new Divisor();
+        $this->assertSame($expect, $d->list($param));
+    }
+
+    public static function provide_commonFactors_can_return_common_factors_correctly(): array
+    {
+        return [
             ['n1' => -10, 'n2' => -10, 'expect' => null, ],
             ['n1' => -1, 'n2' => -1, 'expect' => null, ],
             ['n1' => 0, 'n2' => 0, 'expect' => null, ],
@@ -143,15 +167,20 @@ final class DivisorTest extends TestCase
             ['n1' => 8, 'n2' => 12, 'expect' => [2 => 2], ],
             ['n1' => 72, 'n2' => 108, 'expect' => [2 => 2, 3 => 2, ], ],
         ];
-        $d = new Divisor();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $d->commonFactors($case['n1'], $case['n2']));
-        }
     }
 
-    public function test_greatestCommonFactor_can_return_great_common_factor_correctly(): void
+    /**
+     * @dataProvider provide_commonFactors_can_return_common_factors_correctly
+     */
+    public function test_commonFactors_can_return_common_factors_correctly(int $n1, int $n2, array|null $expect): void
     {
-        $cases = [
+        $d = new Divisor();
+        $this->assertSame($expect, $d->commonFactors($n1, $n2));
+    }
+
+    public static function provide_greatestCommonFactor_can_return_great_common_factor_correctly(): array
+    {
+        return [
             ['n1' => -10, 'n2' => -10, 'expect' => null, ],
             ['n1' => -1, 'n2' => -1, 'expect' => null, ],
             ['n1' => 0, 'n2' => 0, 'expect' => null, ],
@@ -174,15 +203,20 @@ final class DivisorTest extends TestCase
             ['n1' => 10, 'n2' => 15, 'expect' => 5, ],
             ['n1' => 12, 'n2' => 18, 'expect' => 6, ],
         ];
-        $d = new Divisor();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $d->greatestCommonFactor($case['n1'], $case['n2']));
-        }
     }
 
-    public function test_commonDivisors_can_list_common_divisors_correctly(): void
+    /**
+     * @dataProvider provide_greatestCommonFactor_can_return_great_common_factor_correctly
+     */
+    public function test_greatestCommonFactor_can_return_great_common_factor_correctly(int $n1, int $n2, int|null $expect): void
     {
-        $cases = [
+        $d = new Divisor();
+        $this->assertSame($expect, $d->greatestCommonFactor($n1, $n2));
+    }
+
+    public static function provide_commonDivisors_can_list_common_divisors_correctly(): array
+    {
+        return [
             ['n1' => -10, 'n2' => -10, 'expect' => null, ],
             ['n1' => -1, 'n2' => -1, 'expect' => null, ],
             ['n1' => 0, 'n2' => 0, 'expect' => null, ],
@@ -201,15 +235,20 @@ final class DivisorTest extends TestCase
             ['n1' => 8, 'n2' => 12, 'expect' => [1, 2, 4, ], ],
             ['n1' => 12, 'n2' => 18, 'expect' => [1, 2, 3, 6, ], ],
         ];
-        $d = new Divisor();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $d->commonDivisors($case['n1'], $case['n2']));
-        }
     }
 
-    public function test_removeDivisors_can_remove_divisors_correctly(): void
+    /**
+     * @dataProvider provide_commonDivisors_can_list_common_divisors_correctly
+     */
+    public function test_commonDivisors_can_list_common_divisors_correctly(int $n1, int $n2, array|null $expect): void
     {
-        $cases = [
+        $d = new Divisor();
+        $this->assertSame($expect, $d->commonDivisors($n1, $n2));
+    }
+
+    public static function provide_removeDivisors_can_remove_divisors_correctly(): array
+    {
+        return [
             ['d1' => [], 'd2' => [], 'expect' => [], ],
             ['d1' => [ 2 => 1, ], 'd2' => [], 'expect' => [ 2 => 1, ], ],
             ['d1' => [], 'd2' => [ 2 => 1, ], 'expect' => [], ],
@@ -235,15 +274,20 @@ final class DivisorTest extends TestCase
             ['d1' => [ 2 => 3, 3 => 2, ], 'd2' => [ 2 => 3, 3 => 3, ], 'expect' => [ 1 => 1, ], ],
             ['d1' => [ 2 => 3, 3 => 2, ], 'd2' => [ 2 => 4, 3 => 4, ], 'expect' => [ 1 => 1, ], ],
         ];
-        $d = new Divisor();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $d->removeDivisors($case['d1'], $case['d2']));
-        }
     }
 
-    public function test_reduceFraction_can_reduce_fraction_correctly(): void
+    /**
+     * @dataProvider provide_removeDivisors_can_remove_divisors_correctly
+     */
+    public function test_removeDivisors_can_remove_divisors_correctly(array $d1, array $d2, array $expect): void
     {
-        $cases = [
+        $d = new Divisor();
+        $this->assertSame($expect, $d->removeDivisors($d1, $d2));
+    }
+
+    public static function provide_reduceFraction_can_reduce_fraction_correctly(): array
+    {
+        return [
             ['n1' => -10, 'n2' => -10, 'expect' => null, ],
             ['n1' => -1, 'n2' => -1, 'expect' => null, ],
             ['n1' => 0, 'n2' => 0, 'expect' => null, ],
@@ -255,9 +299,14 @@ final class DivisorTest extends TestCase
             ['n1' => 30, 'n2' => 45, 'expect' => [[2 => 1], [3 => 1], ], ],
             ['n1' => 8, 'n2' => 18, 'expect' => [[2 => 2], [3 => 2], ], ],
         ];
+    }
+
+    /**
+     * @dataProvider provide_reduceFraction_can_reduce_fraction_correctly
+     */
+    public function test_reduceFraction_can_reduce_fraction_correctly(int $n1, int $n2, array|null $expect): void
+    {
         $d = new Divisor();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $d->reduceFraction($case['n1'], $case['n2']));
-        }
+        $this->assertSame($expect, $d->reduceFraction($n1, $n2));
     }
 }

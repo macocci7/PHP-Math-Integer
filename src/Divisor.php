@@ -8,16 +8,21 @@ use Macocci7\PhpMathInteger\Prime;
  * class for treating matters of divisors
  * @author  macocci7 <macocci7@yahoo.co.jp>
  * @license MIT
+ * @SuppressWarnings(PHPMD.ElseExpression)
  */
 class Divisor extends Prime
 {
-    private $divisors;
+    /**
+     * @var int[]   $divisors
+     */
+    private array $divisors;
 
     /**
      * constructor
      */
     public function __construct()
     {
+        parent::__construct();
     }
 
     /**
@@ -75,7 +80,7 @@ class Divisor extends Prime
         $v = 1;
         foreach ($factors as $radix => $exp) {
             if ($radix === 0) {
-                return;
+                return null;
             }
             $v *= $radix ** $exp;
         }
@@ -110,7 +115,7 @@ class Divisor extends Prime
      * @param   array<int, int> $m
      * @return  void
      */
-    public function calcR(int $v, int $k, array $e, array $m)
+    private function calcR(int $v, int $k, array $e, array $m)
     {
         for ($i = 0; $i <= $m[$e[$k]]; $i++) {
             if ($k > 0) {
@@ -252,7 +257,7 @@ class Divisor extends Prime
      * reduces fraction
      * @param   int         $n1
      * @param   int         $n2
-     * @return  array<array<int, int>, array<int, int>>|null
+     * @return  array<int, array<int, int>>|null
      */
     public function reduceFraction(int $n1, int $n2)
     {

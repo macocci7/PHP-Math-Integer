@@ -11,23 +11,26 @@ use Macocci7\PhpMathInteger\Multiple;
  * class for treating matters of fraction
  * @author  macocci7 <macocci7@yahoo.co.jp>
  * @license MIT
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @SuppressWarnings(PHPMD.ElseExpression)
  */
 class Fraction
 {
     /**
      * whole numbers of the mixed fraction
      */
-    public int $wholeNumbers;
+    public int|null $wholeNumbers = null;
 
     /**
      * numerator of the fraction
      */
-    public int $numerator;
+    public int|null $numerator = null;
 
     /**
      * denominator of the fraction
      */
-    public int $denominator;
+    public int|null $denominator = null;
 
     /**
      * instance of Macocci7\PhpMathInteger\Number
@@ -62,7 +65,9 @@ class Fraction
         $this->d = new Divisor();
         $this->e = new Euclid();
         $this->m = new Multiple();
-        $this->set($s);
+        if (!is_null($s)) {
+            $this->set($s);
+        }
     }
 
     /**
@@ -159,7 +164,7 @@ class Fraction
 
     /**
      * reduces fractions to the common denominator
-     * @param   Macocci7\PhpMathInteger\Fraction    $f
+     * @param   Fraction    &$f
      * @return  self
      * @thrown  \Exception
      */
@@ -183,7 +188,7 @@ class Fraction
 
     /**
      * adds a fraction to this fraction
-     * @param   Macocci7\PhpMathInteger\Fraction    $f
+     * @param   Fraction    $f
      * @return  self
      * @thrown  \Exception
      */
@@ -201,12 +206,12 @@ class Fraction
     }
 
     /**
-     * substructs a fraction from this fraction
-     * @param   Macocci7\PhpMathInteger\Fraction    $f
+     * substracts a fraction from this fraction
+     * @param   Fraction    $f
      * @return  self
      * @thrown  \Exception
      */
-    public function substruct(Fraction $f)
+    public function substract(Fraction $f)
     {
         if (0 === (int) $this->denominator || 0 === (int) $f->denominator) {
             throw new \Exception('denominator must not be null nor zero.', 1);
@@ -225,7 +230,7 @@ class Fraction
 
     /**
      * multiply this fraction by a fraction $f
-     * @param   Macocci7\PhpMathInteger\Fraction    $f
+     * @param   Fraction    $f
      * @return  self
      * @thrown  \Exception
      */
@@ -246,7 +251,7 @@ class Fraction
 
     /**
      * divide this fraction by a fraction $f
-     * @param   Macocci7\PhpMathInteger\Fraction    $f
+     * @param   Fraction    $f
      * @return  self
      * @thrown  \Exception
      */

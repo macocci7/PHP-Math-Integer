@@ -15,16 +15,20 @@ class Bezout extends Euclid
      * coefficients of a Bezout's Identity
      * $a * x + $b * y = $c
      */
-    public int $a;
-    public int $b;
-    public int $c;
+    public int|null $a = null;
+    public int|null $b = null;
+    public int|null $c = null;
 
     /**
      * constructor
+     * @param   int[]   $c = []
      */
     public function __construct(array $c = [])
     {
-        $this->set($c);
+        parent::__construct();
+        if (!empty($c)) {
+            $this->set($c);
+        }
     }
 
     /**
@@ -36,7 +40,7 @@ class Bezout extends Euclid
     public function set(array $c = [])
     {
         if (count($c) !== 3) {
-            throw new \Exception("Too few array elements. 3 expected.");
+            throw new \Exception("Invalid number of array elements. 3 expected.");
         }
         foreach ($c as $v) {
             if (!$this->isInt($v)) {
@@ -54,7 +58,6 @@ class Bezout extends Euclid
 
     /**
      * clears coefficients of Bezout's Identity
-     * @param
      * @return self
      */
     public function clear()

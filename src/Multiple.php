@@ -8,6 +8,7 @@ use Macocci7\PhpMathInteger\Divisor;
  * class for treating matters of multiples
  * @author  macocci7 <macocci7@yahoo.co.jp>
  * @license MIT
+ * @SuppressWarnings(PHPMD.ElseExpression)
  */
 class Multiple extends Divisor
 {
@@ -16,6 +17,7 @@ class Multiple extends Divisor
      */
     public function __construct()
     {
+        parent::__construct();
     }
 
     /**

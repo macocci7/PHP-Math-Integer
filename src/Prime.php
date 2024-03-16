@@ -8,6 +8,7 @@ use Macocci7\PhpMathInteger\Number;
  * class for treating matters of primes
  * @author  macocci7 <macocci7@yahoo.co.jp>
  * @license MIT
+ * @SuppressWarnings(PHPMD.ElseExpression)
  */
 class Prime extends Number
 {
@@ -16,6 +17,7 @@ class Prime extends Number
      */
     public function __construct()
     {
+        parent::__construct();
     }
 
     /**
@@ -128,12 +130,12 @@ class Prime extends Number
     /**
      * returns the factors of the number
      * @param   int     $n
-     * @return  int[]
+     * @return  int[]|null
      */
     public function factors(int $n)
     {
         if (!$this->isNatural($n)) {
-            return;
+            return null;
         }
         $factors = [];
         foreach ($this->factorize($n) as $f) {

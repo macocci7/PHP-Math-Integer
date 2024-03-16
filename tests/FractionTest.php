@@ -9,32 +9,62 @@ require_once('vendor/autoload.php');
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Fraction;
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.TooManyMethods)
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
 final class FractionTest extends TestCase
 {
-    public function test_set_can_set_values_correctly(): void
+    public static function provide_set_can_throw_exception_with_invalid_param(): array
     {
-        $cases = [
-            ['param' => null, 'expect' => ['w' => null, 'n' => null, 'd' => null, ], ],
-            ['param' => '', 'expect' => ['w' => null, 'n' => null, 'd' => null, ], ],
+        return [
+            ['param' => '', 'message' => 'Invalid string specified.', ],
+            ['param' => '', 'message' => 'Invalid string specified.', ],
+            ['param' => '', 'message' => 'Invalid string specified.', ],
+            ['param' => '', 'message' => 'Invalid string specified.', ],
+        ];
+    }
+
+    /**
+     * @dataProvider provide_set_can_throw_exception_with_invalid_param
+     */
+    public function test_set_can_throw_exception_with_invalid_param(string $param, string $message): void
+    {
+        $f = new Fraction();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage($message);
+        $f->set($param);
+    }
+
+    public static function provide_set_can_set_values_correctly(): array
+    {
+        return [
             ['param' => '1/2', 'expect' => ['w' => null, 'n' => 1, 'd' => 2, ], ],
             ['param' => '1 2/3', 'expect' => ['w' => 1, 'n' => 2, 'd' => 3, ], ],
             ['param' => '4 3/2', 'expect' => ['w' => 4, 'n' => 3, 'd' => 2, ], ],
             ['param' => '0 0/0', 'expect' => ['w' => 0, 'n' => 0, 'd' => 0, ], ],
         ];
-        $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->set($case['param']);
-            $this->assertTrue(
-                $f->wholeNumbers === $case['expect']['w']
-                && $f->numerator === $case['expect']['n']
-                && $f->denominator === $case['expect']['d']
-            );
-        }
     }
 
-    public function test_isReduced_can_judge_correctly(): void
+    /**
+     * @dataProvider provide_set_can_set_values_correctly
+     */
+    public function test_set_can_set_values_correctly(string $param, array $expect): void
     {
-        $cases = [
+        $f = new Fraction();
+        $f->set($param);
+        $this->assertTrue(
+            $f->wholeNumbers === $expect['w']
+            && $f->numerator === $expect['n']
+            && $f->denominator === $expect['d']
+        );
+    }
+
+    public static function provide_isReduced_can_judge_correctly(): array
+    {
+        return [
             ['w' => null, 'n' => -10, 'd' => -10, 'expect' => false, ],
             ['w' => null, 'n' => -1, 'd' => -1, 'expect' => false, ],
             ['w' => null, 'n' => 0, 'd' => 0, 'expect' => false, ],
@@ -50,18 +80,23 @@ final class FractionTest extends TestCase
             ['w' => 1, 'n' => 2, 'd' => 3, 'expect' => true, ],
             ['w' => 1, 'n' => 2, 'd' => 4, 'expect' => false, ],
         ];
-        $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->wholeNumbers = $case['w'];
-            $f->numerator = $case['n'];
-            $f->denominator = $case['d'];
-            $this->assertSame($case['expect'], $f->isReduced());
-        }
     }
 
-    public function test_isProper_can_judge_correctly(): void
+    /**
+     * @dataProvider provide_isReduced_can_judge_correctly
+     */
+    public function test_isReduced_can_judge_correctly(int|null $w, int $n, int $d, bool $expect): void
     {
-        $cases = [
+        $f = new Fraction();
+        $f->wholeNumbers = $w;
+        $f->numerator = $n;
+        $f->denominator = $d;
+        $this->assertSame($expect, $f->isReduced());
+    }
+
+    public static function provide_isProper_can_judge_correctly(): array
+    {
+        return [
             ['w' => null, 'n' => -10, 'd' => -10, 'expect' => false],
             ['w' => null, 'n' => -1, 'd' => -1, 'expect' => false],
             ['w' => null, 'n' => 0, 'd' => 0, 'expect' => false],
@@ -78,18 +113,23 @@ final class FractionTest extends TestCase
             ['w' => 1, 'n' => 2, 'd' => 3, 'expect' => false],
             ['w' => 2, 'n' => 2, 'd' => 3, 'expect' => false],
         ];
-        $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->wholeNumbers = $case['w'];
-            $f->numerator = $case['n'];
-            $f->denominator = $case['d'];
-            $this->assertSame($case['expect'], $f->isProper());
-        }
     }
 
-    public function test_isImproper_can_judge_correctly(): void
+    /**
+     * @dataProvider provide_isProper_can_judge_correctly
+     */
+    public function test_isProper_can_judge_correctly(int|null $w, int $n, int $d, bool $expect): void
     {
-        $cases = [
+        $f = new Fraction();
+        $f->wholeNumbers = $w;
+        $f->numerator = $n;
+        $f->denominator = $d;
+        $this->assertSame($expect, $f->isProper());
+    }
+
+    public static function provide_isImproper_can_judge_correctly(): array
+    {
+        return [
             ['w' => null, 'n' => -10, 'd' => -10, 'expect' => false, ],
             ['w' => null, 'n' => -1, 'd' => -1, 'expect' => false, ],
             ['w' => null, 'n' => 0, 'd' => 0, 'expect' => false, ],
@@ -107,18 +147,23 @@ final class FractionTest extends TestCase
             ['w' => 1, 'n' => 3, 'd' => 2, 'expect' => false, ],
             ['w' => 2, 'n' => 3, 'd' => 2, 'expect' => false, ],
         ];
-        $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->wholeNumbers = $case['w'];
-            $f->numerator = $case['n'];
-            $f->denominator = $case['d'];
-            $this->assertSame($case['expect'], $f->isImproper());
-        }
     }
 
-    public function test_isMixed_can_judge_correctly(): void
+    /**
+     * @dataProvider provide_isImproper_can_judge_correctly
+     */
+    public function test_isImproper_can_judge_correctly(int|null $w, int $n, int $d, bool $expect): void
     {
-        $cases = [
+        $f = new Fraction();
+        $f->wholeNumbers = $w;
+        $f->numerator = $n;
+        $f->denominator = $d;
+        $this->assertSame($expect, $f->isImproper());
+    }
+
+    public static function provide_isMixed_can_judge_correctly(): array
+    {
+        return [
             ['w' => null, 'n' => -10, 'd' => -10, 'expect' => false, ],
             ['w' => null, 'n' => -1, 'd' => -1, 'expect' => false, ],
             ['w' => null, 'n' => 0, 'd' => 0, 'expect' => false, ],
@@ -133,18 +178,23 @@ final class FractionTest extends TestCase
             ['w' => 1, 'n' => 1, 'd' => 1, 'expect' => true, ],
             ['w' => 1, 'n' => 1, 'd' => 2, 'expect' => true, ],
         ];
-        $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->wholeNumbers = $case['w'];
-            $f->numerator = $case['n'];
-            $f->denominator = $case['d'];
-            $this->assertSame($case['expect'], $f->isMixed());
-        }
     }
 
-    public function test_reduce_can_reduce_fraction_correctly(): void
+    /**
+     * @dataProvider provide_isMixed_can_judge_correctly
+     */
+    public function test_isMixed_can_judge_correctly(int|null $w, int|null $n, int|null $d, bool $expect): void
     {
-        $cases = [
+        $f = new Fraction();
+        $f->wholeNumbers = $w;
+        $f->numerator = $n;
+        $f->denominator = $d;
+        $this->assertSame($expect, $f->isMixed());
+    }
+
+    public static function provide_reduce_can_reduce_fraction_correctly(): array
+    {
+        return [
             ['preset' => ['w' => null, 'n' => -10, 'd' => -10, ], 'expect' => ['w' => null, 'n' => -10, 'd' => -10, ], ],
             ['preset' => ['w' => null, 'n' => -1, 'd' => -1, ], 'expect' => ['w' => null, 'n' => -1, 'd' => -1, ], ],
             ['preset' => ['w' => null, 'n' => 0, 'd' => 0, ], 'expect' => ['w' => null, 'n' => 0, 'd' => 0, ], ],
@@ -174,23 +224,28 @@ final class FractionTest extends TestCase
             ['preset' => ['w' => 2, 'n' => 2, 'd' => 3, ], 'expect' => ['w' => 2, 'n' => 2, 'd' => 3, ], ],
             ['preset' => ['w' => 2, 'n' => 2, 'd' => 4, ], 'expect' => ['w' => 2, 'n' => 1, 'd' => 2, ], ],
         ];
-        $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->wholeNumbers = $case['preset']['w'];
-            $f->numerator = $case['preset']['n'];
-            $f->denominator = $case['preset']['d'];
-            $f->reduce();
-            $this->assertTrue(
-                $f->wholeNumbers === $case['expect']['w']
-                && $f->numerator === $case['expect']['n']
-                && $f->denominator === $case['expect']['d']
-            );
-        }
     }
 
-    public function test_add_can_throw_exception_with_invalid_preset(): void
+    /**
+     * @dataProvider provide_reduce_can_reduce_fraction_correctly
+     */
+    public function test_reduce_can_reduce_fraction_correctly(array $preset, array $expect): void
     {
-        $cases = [
+        $f = new Fraction();
+        $f->wholeNumbers = $preset['w'];
+        $f->numerator = $preset['n'];
+        $f->denominator = $preset['d'];
+        $f->reduce();
+        $this->assertTrue(
+            $f->wholeNumbers === $expect['w']
+            && $f->numerator === $expect['n']
+            && $f->denominator === $expect['d']
+        );
+    }
+
+    public static function provide_add_can_throw_exception_with_invalid_preset(): array
+    {
+        return [
             [
                 'preset1' => [ 'w' => null, 'n' => null, 'd' => null, ],
                 'preset2' => [ 'w' => null, 'n' => null, 'd' => null, ],
@@ -212,25 +267,30 @@ final class FractionTest extends TestCase
                 'preset2' => [ 'w' => 2, 'n' => 1, 'd' => 0, ],
             ],
         ];
-        $f1 = new Fraction();
-        $f2 = new Fraction();
-        foreach ($cases as $case) {
-            $f1->wholeNumbers = $case['preset1']['w'];
-            $f1->numerator = $case['preset1']['n'];
-            $f1->denominator = $case['preset1']['d'];
-            $f2->wholeNumbers = $case['preset2']['w'];
-            $f2->numerator = $case['preset2']['n'];
-            $f2->denominator = $case['preset2']['d'];
-            $this->expectException(\Exception::class);
-            $this->expectExceptionCode(1);
-            $this->expectExceptionMessage('denominator must not be null nor zero.');
-            $f1->add($f2);
-        }
     }
 
-    public function test_add_can_add_a_fraction_correctly(): void
+    /**
+     * @dataProvider provide_add_can_throw_exception_with_invalid_preset
+     */
+    public function test_add_can_throw_exception_with_invalid_preset(array $preset1, array $preset2): void
     {
-        $cases = [
+        $f1 = new Fraction();
+        $f2 = new Fraction();
+        $f1->wholeNumbers = $preset1['w'];
+        $f1->numerator = $preset1['n'];
+        $f1->denominator = $preset1['d'];
+        $f2->wholeNumbers = $preset2['w'];
+        $f2->numerator = $preset2['n'];
+        $f2->denominator = $preset2['d'];
+        $this->expectException(\Exception::class);
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage('denominator must not be null nor zero.');
+        $f1->add($f2);
+    }
+
+    public static function provide_add_can_add_a_fraction_correctly(): array
+    {
+        return [
             [
                 'preset1' => [ 'w' => null, 'n' => 0, 'd' => 1, ],
                 'preset2' => [ 'w' => null, 'n' => 1, 'd' => 2, ],
@@ -262,27 +322,32 @@ final class FractionTest extends TestCase
                 'expect' => [ 'w' => null, 'n' => 11, 'd' => 2, ],
             ],
         ];
-        $f1 = new Fraction();
-        $f2 = new Fraction();
-        foreach ($cases as $case) {
-            $f1->wholeNumbers = $case['preset1']['w'];
-            $f1->numerator = $case['preset1']['n'];
-            $f1->denominator = $case['preset1']['d'];
-            $f2->wholeNumbers = $case['preset2']['w'];
-            $f2->numerator = $case['preset2']['n'];
-            $f2->denominator = $case['preset2']['d'];
-            $f1->add($f2);
-            $this->assertTrue(
-                $f1->wholeNumbers === $case['expect']['w']
-                && $f1->numerator === $case['expect']['n']
-                && $f1->denominator === $case['expect']['d']
-            );
-        }
     }
 
-    public function test_substruct_can_throw_exception_with_invalid_preset(): void
+    /**
+     * @dataProvider provide_add_can_add_a_fraction_correctly
+     */
+    public function test_add_can_add_a_fraction_correctly(array $preset1, array $preset2, array $expect): void
     {
-        $cases = [
+        $f1 = new Fraction();
+        $f2 = new Fraction();
+        $f1->wholeNumbers = $preset1['w'];
+        $f1->numerator = $preset1['n'];
+        $f1->denominator = $preset1['d'];
+        $f2->wholeNumbers = $preset2['w'];
+        $f2->numerator = $preset2['n'];
+        $f2->denominator = $preset2['d'];
+        $f1->add($f2);
+        $this->assertTrue(
+            $f1->wholeNumbers === $expect['w']
+            && $f1->numerator === $expect['n']
+            && $f1->denominator === $expect['d']
+        );
+    }
+
+    public static function provide_substract_can_throw_exception_with_invalid_preset(): array
+    {
+        return [
             [
                 'preset1' => [ 'w' => null, 'n' => null, 'd' => null, ],
                 'preset2' => [ 'w' => null, 'n' => null, 'd' => null, ],
@@ -304,25 +369,30 @@ final class FractionTest extends TestCase
                 'preset2' => [ 'w' => 2, 'n' => 1, 'd' => 0, ],
             ],
         ];
-        $f1 = new Fraction();
-        $f2 = new Fraction();
-        foreach ($cases as $case) {
-            $f1->wholeNumbers = $case['preset1']['w'];
-            $f1->numerator = $case['preset1']['n'];
-            $f1->denominator = $case['preset1']['d'];
-            $f2->wholeNumbers = $case['preset2']['w'];
-            $f2->numerator = $case['preset2']['n'];
-            $f2->denominator = $case['preset2']['d'];
-            $this->expectException(\Exception::class);
-            $this->expectExceptionCode(1);
-            $this->expectExceptionMessage('denominator must not be null nor zero.');
-            $f1->substruct($f2);
-        }
     }
 
-    public function test_substruct_can_substruct_a_fraction_correctly(): void
+    /**
+     * @dataProvider provide_substract_can_throw_exception_with_invalid_preset
+     */
+    public function test_substract_can_throw_exception_with_invalid_preset(array $preset1, array $preset2): void
     {
-        $cases = [
+        $f1 = new Fraction();
+        $f2 = new Fraction();
+        $f1->wholeNumbers = $preset1['w'];
+        $f1->numerator = $preset1['n'];
+        $f1->denominator = $preset1['d'];
+        $f2->wholeNumbers = $preset2['w'];
+        $f2->numerator = $preset2['n'];
+        $f2->denominator = $preset2['d'];
+        $this->expectException(\Exception::class);
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage('denominator must not be null nor zero.');
+        $f1->substract($f2);
+    }
+
+    public static function provide_substract_can_substract_a_fraction_correctly(): array
+    {
+        return [
             [
                 'preset1' => [ 'w' => null, 'n' => 0, 'd' => 1, ],
                 'preset2' => [ 'w' => null, 'n' => 1, 'd' => 2, ],
@@ -354,27 +424,32 @@ final class FractionTest extends TestCase
                 'expect' => [ 'w' => null, 'n' => -1, 'd' => 2, ],
             ],
         ];
-        $f1 = new Fraction();
-        $f2 = new Fraction();
-        foreach ($cases as $case) {
-            $f1->wholeNumbers = $case['preset1']['w'];
-            $f1->numerator = $case['preset1']['n'];
-            $f1->denominator = $case['preset1']['d'];
-            $f2->wholeNumbers = $case['preset2']['w'];
-            $f2->numerator = $case['preset2']['n'];
-            $f2->denominator = $case['preset2']['d'];
-            $f1->substruct($f2);
-            $this->assertTrue(
-                $f1->wholeNumbers === $case['expect']['w']
-                && $f1->numerator === $case['expect']['n']
-                && $f1->denominator === $case['expect']['d']
-            );
-        }
     }
 
-    public function test_multiply_can_throw_exception_with_invalid_preset(): void
+    /**
+     * @dataProvider provide_substract_can_substract_a_fraction_correctly
+     */
+    public function test_substract_can_substract_a_fraction_correctly(array $preset1, array $preset2, array $expect): void
     {
-        $cases = [
+        $f1 = new Fraction();
+        $f2 = new Fraction();
+        $f1->wholeNumbers = $preset1['w'];
+        $f1->numerator = $preset1['n'];
+        $f1->denominator = $preset1['d'];
+        $f2->wholeNumbers = $preset2['w'];
+        $f2->numerator = $preset2['n'];
+        $f2->denominator = $preset2['d'];
+        $f1->substract($f2);
+        $this->assertTrue(
+            $f1->wholeNumbers === $expect['w']
+            && $f1->numerator === $expect['n']
+            && $f1->denominator === $expect['d']
+        );
+    }
+
+    public static function provide_multiply_can_throw_exception_with_invalid_preset(): array
+    {
+        return [
             [
                 'preset1' => [ 'w' => null, 'n' => null, 'd' => null, ],
                 'preset2' => [ 'w' => null, 'n' => null, 'd' => null, ],
@@ -396,25 +471,30 @@ final class FractionTest extends TestCase
                 'preset2' => [ 'w' => 2, 'n' => 1, 'd' => 0, ],
             ],
         ];
-        $f1 = new Fraction();
-        $f2 = new Fraction();
-        foreach ($cases as $case) {
-            $f1->wholeNumbers = $case['preset1']['w'];
-            $f1->numerator = $case['preset1']['n'];
-            $f1->denominator = $case['preset1']['d'];
-            $f2->wholeNumbers = $case['preset2']['w'];
-            $f2->numerator = $case['preset2']['n'];
-            $f2->denominator = $case['preset2']['d'];
-            $this->expectException(\Exception::class);
-            $this->expectExceptionCode(1);
-            $this->expectExceptionMessage('denominator must not be null nor zero.');
-            $f1->multiply($f2);
-        }
     }
 
-    public function test_multiply_can_multiply_by_a_fraction_correctly(): void
+    /**
+     * @dataProvider provide_multiply_can_throw_exception_with_invalid_preset
+     */
+    public function test_multiply_can_throw_exception_with_invalid_preset(array $preset1, array $preset2): void
     {
-        $cases = [
+        $f1 = new Fraction();
+        $f2 = new Fraction();
+        $f1->wholeNumbers = $preset1['w'];
+        $f1->numerator = $preset1['n'];
+        $f1->denominator = $preset1['d'];
+        $f2->wholeNumbers = $preset2['w'];
+        $f2->numerator = $preset2['n'];
+        $f2->denominator = $preset2['d'];
+        $this->expectException(\Exception::class);
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage('denominator must not be null nor zero.');
+        $f1->multiply($f2);
+    }
+
+    public static function provide_multiply_can_multiply_by_a_fraction_correctly(): array
+    {
+        return [
             [
                 'preset1' => [ 'w' => null, 'n' => 0, 'd' => 1, ],
                 'preset2' => [ 'w' => null, 'n' => 1, 'd' => 2, ],
@@ -446,27 +526,32 @@ final class FractionTest extends TestCase
                 'expect' => [ 'w' => null, 'n' => 6, 'd' => 1, ],
             ],
         ];
-        $f1 = new Fraction();
-        $f2 = new Fraction();
-        foreach ($cases as $case) {
-            $f1->wholeNumbers = $case['preset1']['w'];
-            $f1->numerator = $case['preset1']['n'];
-            $f1->denominator = $case['preset1']['d'];
-            $f2->wholeNumbers = $case['preset2']['w'];
-            $f2->numerator = $case['preset2']['n'];
-            $f2->denominator = $case['preset2']['d'];
-            $f1->multiply($f2);
-            $this->assertTrue(
-                $f1->wholeNumbers === $case['expect']['w']
-                && $f1->numerator === $case['expect']['n']
-                && $f1->denominator === $case['expect']['d']
-            );
-        }
     }
 
-    public function test_divide_can_throw_exception_with_invalid_denominator(): void
+    /**
+     * @dataProvider provide_multiply_can_multiply_by_a_fraction_correctly
+     */
+    public function test_multiply_can_multiply_by_a_fraction_correctly(array $preset1, array $preset2, array $expect): void
     {
-        $cases = [
+        $f1 = new Fraction();
+        $f2 = new Fraction();
+        $f1->wholeNumbers = $preset1['w'];
+        $f1->numerator = $preset1['n'];
+        $f1->denominator = $preset1['d'];
+        $f2->wholeNumbers = $preset2['w'];
+        $f2->numerator = $preset2['n'];
+        $f2->denominator = $preset2['d'];
+        $f1->multiply($f2);
+        $this->assertTrue(
+            $f1->wholeNumbers === $expect['w']
+            && $f1->numerator === $expect['n']
+            && $f1->denominator === $expect['d']
+        );
+    }
+
+    public static function provide_divide_can_throw_exception_with_invalid_denominator(): array
+    {
+        return [
             [
                 'preset1' => [ 'w' => null, 'n' => null, 'd' => null, ],
                 'preset2' => [ 'w' => null, 'n' => null, 'd' => null, ],
@@ -488,49 +573,59 @@ final class FractionTest extends TestCase
                 'preset2' => [ 'w' => 2, 'n' => 1, 'd' => 0, ],
             ],
         ];
-        $f1 = new Fraction();
-        $f2 = new Fraction();
-        foreach ($cases as $case) {
-            $f1->wholeNumbers = $case['preset1']['w'];
-            $f1->numerator = $case['preset1']['n'];
-            $f1->denominator = $case['preset1']['d'];
-            $f2->wholeNumbers = $case['preset2']['w'];
-            $f2->numerator = $case['preset2']['n'];
-            $f2->denominator = $case['preset2']['d'];
-            $this->expectException(\Exception::class);
-            $this->expectExceptionCode(1);
-            $this->expectExceptionMessage('denominator must not be null nor zero.');
-            $f1->divide($f2);
-        }
     }
 
-    public function test_divide_can_throw_exception_with_invalid_divisor(): void
+    /**
+     * @dataProvider provide_divide_can_throw_exception_with_invalid_denominator
+     */
+    public function test_divide_can_throw_exception_with_invalid_denominator(array $preset1, array $preset2): void
     {
-        $cases = [
+        $f1 = new Fraction();
+        $f2 = new Fraction();
+        $f1->wholeNumbers = $preset1['w'];
+        $f1->numerator = $preset1['n'];
+        $f1->denominator = $preset1['d'];
+        $f2->wholeNumbers = $preset2['w'];
+        $f2->numerator = $preset2['n'];
+        $f2->denominator = $preset2['d'];
+        $this->expectException(\Exception::class);
+        $this->expectExceptionCode(1);
+        $this->expectExceptionMessage('denominator must not be null nor zero.');
+        $f1->divide($f2);
+    }
+
+    public static function provide_divide_can_throw_exception_with_invalid_divisor(): array
+    {
+        return [
             [
                 'preset1' => [ 'w' => 2, 'n' => 1, 'd' => 1, ],
                 'preset2' => [ 'w' => 2, 'n' => 0, 'd' => 1, ],
             ],
         ];
-        $f1 = new Fraction();
-        $f2 = new Fraction();
-        foreach ($cases as $case) {
-            $f1->wholeNumbers = $case['preset1']['w'];
-            $f1->numerator = $case['preset1']['n'];
-            $f1->denominator = $case['preset1']['d'];
-            $f2->wholeNumbers = $case['preset2']['w'];
-            $f2->numerator = $case['preset2']['n'];
-            $f2->denominator = $case['preset2']['d'];
-            $this->expectException(\Exception::class);
-            $this->expectExceptionCode(2);
-            $this->expectExceptionMessage('divisor must not be null nor zero.');
-            $f1->divide($f2);
-        }
     }
 
-    public function test_divide_can_divide_by_a_fraction_correctly(): void
+    /**
+     * @dataProvider provide_divide_can_throw_exception_with_invalid_divisor
+     */
+    public function test_divide_can_throw_exception_with_invalid_divisor(array $preset1, array $preset2): void
     {
-        $cases = [
+        $f1 = new Fraction();
+        $f2 = new Fraction();
+        $f1->wholeNumbers = $preset1['w'];
+        $f1->numerator = $preset1['n'];
+        $f1->denominator = $preset1['d'];
+        $f2->wholeNumbers = $preset2['w'];
+        $f2->numerator = $preset2['n'];
+        $f2->denominator = $preset2['d'];
+        $this->expectException(\Exception::class);
+        $this->expectExceptionCode(2);
+        $this->expectExceptionMessage('divisor must not be null nor zero.');
+        $f1->divide($f2);
+    }
+
+    public static function provide_divide_can_divide_by_a_fraction_correctly(): array
+    {
+        return [
             [
                 'preset1' => [ 'w' => null, 'n' => 0, 'd' => 1, ],
                 'preset2' => [ 'w' => null, 'n' => 1, 'd' => 2, ],
@@ -557,27 +652,32 @@ final class FractionTest extends TestCase
                 'expect' => [ 'w' => null, 'n' => 6, 'd' => 1, ],
             ],
         ];
-        $f1 = new Fraction();
-        $f2 = new Fraction();
-        foreach ($cases as $case) {
-            $f1->wholeNumbers = $case['preset1']['w'];
-            $f1->numerator = $case['preset1']['n'];
-            $f1->denominator = $case['preset1']['d'];
-            $f2->wholeNumbers = $case['preset2']['w'];
-            $f2->numerator = $case['preset2']['n'];
-            $f2->denominator = $case['preset2']['d'];
-            $f1->divide($f2);
-            $this->assertTrue(
-                $f1->wholeNumbers === $case['expect']['w']
-                && $f1->numerator === $case['expect']['n']
-                && $f1->denominator === $case['expect']['d']
-            );
-        }
     }
 
-    public function test_mixed_can_make_mixed_fraction_correctly(): void
+    /**
+     * @dataProvider provide_divide_can_divide_by_a_fraction_correctly
+     */
+    public function test_divide_can_divide_by_a_fraction_correctly(array $preset1, array $preset2, array $expect): void
     {
-        $cases = [
+        $f1 = new Fraction();
+        $f2 = new Fraction();
+        $f1->wholeNumbers = $preset1['w'];
+        $f1->numerator = $preset1['n'];
+        $f1->denominator = $preset1['d'];
+        $f2->wholeNumbers = $preset2['w'];
+        $f2->numerator = $preset2['n'];
+        $f2->denominator = $preset2['d'];
+        $f1->divide($f2);
+        $this->assertTrue(
+            $f1->wholeNumbers === $expect['w']
+            && $f1->numerator === $expect['n']
+            && $f1->denominator === $expect['d']
+        );
+    }
+
+    public static function provide_mixed_can_make_mixed_fraction_correctly(): array
+    {
+        return [
             ['preset' => ['w' => null, 'n' => -10, 'd' => -10, ], 'expect' => ['w' => null, 'n' => -10, 'd' => -10, ], ],
             ['preset' => ['w' => null, 'n' => -1, 'd' => -1, ], 'expect' => ['w' => null, 'n' => -1, 'd' => -1, ], ],
             ['preset' => ['w' => null, 'n' => 0, 'd' => 0, ], 'expect' => ['w' => null, 'n' => 0, 'd' => 0, ], ],
@@ -611,23 +711,28 @@ final class FractionTest extends TestCase
             ['preset' => ['w' => 2, 'n' => 2, 'd' => 3, ], 'expect' => ['w' => 2, 'n' => 2, 'd' => 3, ], ],
             ['preset' => ['w' => 2, 'n' => 2, 'd' => 4, ], 'expect' => ['w' => 2, 'n' => 2, 'd' => 4, ], ],
         ];
-        $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->wholeNumbers = $case['preset']['w'];
-            $f->numerator = $case['preset']['n'];
-            $f->denominator = $case['preset']['d'];
-            $f->mixed();
-            $this->assertTrue(
-                $f->wholeNumbers === $case['expect']['w']
-                && $f->numerator === $case['expect']['n']
-                && $f->denominator === $case['expect']['d']
-            );
-        }
     }
 
-    public function test_int_can_return_integer_correctly(): void
+    /**
+     * @dataProvider provide_mixed_can_make_mixed_fraction_correctly
+     */
+    public function test_mixed_can_make_mixed_fraction_correctly(array $preset, array $expect): void
     {
-        $cases = [
+        $f = new Fraction();
+        $f->wholeNumbers = $preset['w'];
+        $f->numerator = $preset['n'];
+        $f->denominator = $preset['d'];
+        $f->mixed();
+        $this->assertTrue(
+            $f->wholeNumbers === $expect['w']
+            && $f->numerator === $expect['n']
+            && $f->denominator === $expect['d']
+        );
+    }
+
+    public static function provide_int_can_return_integer_correctly(): array
+    {
+        return [
             ['w' => null, 'n' => null, 'd' => null, 'expect' => null, ],
             ['w' => 1, 'n' => null, 'd' => null, 'expect' => null, ],
             ['w' => null, 'n' => 1, 'd' => null, 'expect' => null, ],
@@ -651,18 +756,23 @@ final class FractionTest extends TestCase
             ['w' => -1, 'n' => -3, 'd' => 2, 'expect' => 0, ],
             ['w' => -1, 'n' => -5, 'd' => 2, 'expect' => 1, ],
         ];
-        $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->wholeNumbers = $case['w'];
-            $f->numerator = $case['n'];
-            $f->denominator = $case['d'];
-            $this->assertSame($case['expect'], $f->int());
-        }
     }
 
-    public function test_float_can_return_float_correctly(): void
+    /**
+     * @dataProvider provide_int_can_return_integer_correctly
+     */
+    public function test_int_can_return_integer_correctly(int|null $w, int|null $n, int|null $d, int|null $expect): void
     {
-        $cases = [
+        $f = new Fraction();
+        $f->wholeNumbers = $w;
+        $f->numerator = $n;
+        $f->denominator = $d;
+        $this->assertSame($expect, $f->int());
+    }
+
+    public static function provide_float_can_return_float_correctly(): array
+    {
+        return [
             ['w' => null, 'n' => null, 'd' => null, 'expect' => null, ],
             ['w' => null, 'n' => null, 'd' => 0, 'expect' => null, ],
             ['w' => null, 'n' => 0, 'd' => null, 'expect' => null, ],
@@ -688,18 +798,23 @@ final class FractionTest extends TestCase
             ['w' => 2, 'n' => 2, 'd' => 1, 'expect' => 4.0, ],
             ['w' => 2, 'n' => 2, 'd' => 4, 'expect' => 2.5, ],
         ];
-        $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->wholeNumbers = $case['w'];
-            $f->numerator = $case['n'];
-            $f->denominator = $case['d'];
-            $this->assertSame($case['expect'], $f->float());
-        }
     }
 
-    public function test_text_can_return_text_correctly(): void
+    /**
+     * @dataProvider provide_float_can_return_float_correctly
+     */
+    public function test_float_can_return_float_correctly(int|null $w, int|null $n, int|null $d, float|null $expect): void
     {
-        $cases = [
+        $f = new Fraction();
+        $f->wholeNumbers = $w;
+        $f->numerator = $n;
+        $f->denominator = $d;
+        $this->assertSame($expect, $f->float());
+    }
+
+    public static function provide_text_can_return_text_correctly(): array
+    {
+        return [
             ['w' => null, 'n' => null, 'd' => null, 'expect' => null, ],
             ['w' => null, 'n' => null, 'd' => 1, 'expect' => null, ],
             ['w' => null, 'n' => 1, 'd' => null, 'expect' => null, ],
@@ -711,12 +826,17 @@ final class FractionTest extends TestCase
             ['w' => 1, 'n' => 2, 'd' => 3, 'expect' => '1 2/3', ],
             ['w' => 1, 'n' => 2, 'd' => 0, 'expect' => '1 2/0', ],
         ];
+    }
+
+    /**
+     * @dataProvider provide_text_can_return_text_correctly
+     */
+    public function test_text_can_return_text_correctly(int|null $w, int|null $n, int|null $d, string|null $expect): void
+    {
         $f = new Fraction();
-        foreach ($cases as $case) {
-            $f->wholeNumbers = $case['w'];
-            $f->numerator = $case['n'];
-            $f->denominator = $case['d'];
-            $this->assertSame($case['expect'], $f->text());
-        }
+        $f->wholeNumbers = $w;
+        $f->numerator = $n;
+        $f->denominator = $d;
+        $this->assertSame($expect, $f->text());
     }
 }

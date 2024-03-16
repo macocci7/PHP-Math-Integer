@@ -149,12 +149,12 @@ class Number
 
     /**
      * returns sign of $n as one of [ -1, 0, 1, ]
-     * @param   int|float   $n
+     * @param   int|float|null   $n
      * @return  int
      */
-    public function sign(int|float $n)
+    public function sign(int|float|null $n)
     {
-        return $n > 0 ? 1 : ($n < 0 ? -1 : 0);
+        return is_null($n) ? null : ($n > 0 ? 1 : ($n < 0 ? -1 : 0));
     }
 
     /**
@@ -170,7 +170,7 @@ class Number
     /**
      * returns fraction part of $n
      * @param   float   $n
-     * @return  bool
+     * @return  float
      */
     public function fraction(float $n)
     {
