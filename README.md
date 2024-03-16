@@ -577,13 +577,13 @@ This class treats basic matters of Bezout's Identity.
 
 ## 6. Examples
 
-- [UseNumber.php](example/UseNumber.php) results in >> [UseNumber.txt](example/UseNumber.txt)
-- [UsePrime.php](example/UsePrime.php) results in >> [UsePrime.txt](example/UsePrime.txt)
-- [UseDivisor.php](example/UseDivisor.php) results in >> [UseDivisor.txt](example/UseDivisor.txt)
-- [UseMultiple.php](example/UseMultiple.php) results in >> [UseMultiple.txt](example/UseMultiple.txt)
-- [UseFraction.php](example/UseFraction.php) results in >> [UseFraction.txt](example/UseFraction.txt)
-- [UseEuclid.php](example/UseEuclid.php) results in >> [UseEuclid.txt](example/UseEuclid.txt)
-- [UseBezout.php](example/UseBezout.php) results in >> [UseBezout.txt](example/UseBezout.txt)
+- [UseNumber.php](examples/UseNumber.php) results in >> [UseNumber.txt](examples/UseNumber.txt)
+- [UsePrime.php](examples/UsePrime.php) results in >> [UsePrime.txt](examples/UsePrime.txt)
+- [UseDivisor.php](examples/UseDivisor.php) results in >> [UseDivisor.txt](examples/UseDivisor.txt)
+- [UseMultiple.php](examples/UseMultiple.php) results in >> [UseMultiple.txt](examples/UseMultiple.txt)
+- [UseFraction.php](examples/UseFraction.php) results in >> [UseFraction.txt](examples/UseFraction.txt)
+- [UseEuclid.php](examples/UseEuclid.php) results in >> [UseEuclid.txt](examples/UseEuclid.txt)
+- [UseBezout.php](examples/UseBezout.php) results in >> [UseBezout.txt](examples/UseBezout.txt)
 
 ## 7. LICENSE
 
