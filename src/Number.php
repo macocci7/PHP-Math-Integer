@@ -2,6 +2,11 @@
 
 namespace Macocci7\PhpMathInteger;
 
+/**
+ * class for treating basic matter of numbers
+ * @author  macocci7 <macocci7@yahoo.co.jp>
+ * @license MIT
+ */
 class Number
 {
     /**
@@ -14,17 +19,17 @@ class Number
     /**
      * judges if $n is integer or not
      * @param   mixed   $n
-     * @return  boolean
+     * @return  bool
      */
-    public function isInt($n)
+    public function isInt(mixed $n)
     {
-        return (int) $n === $n;
+        return is_int($n);
     }
 
     /**
      * judges if the all elements of $ns are integer or not
-     * @param   array   $ns
-     * @return  boolean
+     * @param   mixed[] $ns
+     * @return  bool
      */
     public function isIntAll(array $ns)
     {
@@ -39,9 +44,9 @@ class Number
     /**
      * judges if $n is natural number or not
      * @param   mixed   $n
-     * @return  boolean
+     * @return  bool
      */
-    public function isNatural($n)
+    public function isNatural(mixed $n)
     {
         if (!$this->isInt($n)) {
             return false;
@@ -51,8 +56,8 @@ class Number
 
     /**
      * judges if the all elements of $ns are natural number or not
-     * @param   array   $ns
-     * @return  boolean
+     * @param   mixed[] $ns
+     * @return  bool
      */
     public function isNaturalAll(array $ns)
     {
@@ -67,17 +72,17 @@ class Number
     /**
      * judges $n is float or not
      * @param   mixed   $n
-     * @return  boolean
+     * @return  bool
      */
-    public function isFloat($n)
+    public function isFloat(mixed $n)
     {
-        return (float) $n === $n;
+        return is_float($n);
     }
 
     /**
      * judges if the all elements of $ns are float or not
-     * @param   array   $ns
-     * @return  boolean
+     * @param   mixed[] $ns
+     * @return  bool
      */
     public function isFloatAll(array $ns)
     {
@@ -92,17 +97,17 @@ class Number
     /**
      * judges if $n is number or not
      * @param   mixed   $n
-     * @return  boolean
+     * @return  bool
      */
-    public function isNumber($n)
+    public function isNumber(mixed $n)
     {
         return $this->isInt($n) || $this->isFloat($n);
     }
 
     /**
      * judges if the all elements of $ns are number of not
-     * @param   array   $ns
-     * @return  boolean
+     * @param   mixed[] $ns
+     * @return  bool
      */
     public function isNumberAll(array $ns)
     {
@@ -117,9 +122,9 @@ class Number
     /**
      * judges if $n is decimal fraction or not
      * @param   mixed   $n
-     * @return  boolean
+     * @return  bool
      */
-    public function isFraction($n)
+    public function isFraction(mixed $n)
     {
         if (!$this->isFloat($n)) {
             return false;
@@ -129,8 +134,8 @@ class Number
 
     /**
      * judges if the all elements of $ns are fraction or not
-     * @param   array   $ns
-     * @return  boolean
+     * @param   mixed[] $ns
+     * @return  bool
      */
     public function isFractionAll(array $ns)
     {
@@ -144,21 +149,18 @@ class Number
 
     /**
      * returns sign of $n as one of [ -1, 0, 1, ]
-     * @param   mixed   $n
-     * @return  integer|null
+     * @param   int|float|null   $n
+     * @return  int
      */
-    public function sign($n)
+    public function sign(int|float|null $n)
     {
-        if (!$this->isNumber($n)) {
-            return;
-        }
-        return $n > 0 ? 1 : ($n < 0 ? -1 : 0);
+        return is_null($n) ? null : ($n > 0 ? 1 : ($n < 0 ? -1 : 0));
     }
 
     /**
      * returns integer part of $n
      * @param   float   $n
-     * @return  integer|null
+     * @return  int
      */
     public function int(float $n)
     {
@@ -168,7 +170,7 @@ class Number
     /**
      * returns fraction part of $n
      * @param   float   $n
-     * @return  boolean
+     * @return  float
      */
     public function fraction(float $n)
     {
@@ -177,50 +179,44 @@ class Number
 
     /**
      * retruns ($n)th digit of $d
-     * @param   integer $n
-     * @param   mixed   $d
-     * @return  integer|null
+     * @param   int         $n
+     * @param   int|float   $d
+     * @return  int|null
      */
-    public function nthDigit(int $n, $d)
+    public function nthDigit(int $n, int|float $d)
     {
-        if (!$this->isNumber($d)) {
-            return;
-        }
         if ($n > 0) {
             // integer part
             $s = (string) $this->int(abs($d));
             if ($n > strlen($s)) {
-                return;
+                return null;
             }
             return (int) substr($s, -$n, 1);
         } elseif ($n < 0) {
             // fraction part
             $s = (string) $this->fraction(abs($d));
             if (-$n > strlen($s) - 2) {
-                return;
+                return null;
             }
             return (int) substr($s, 1 - $n, 1);
         }
-        return;
+        return null;
     }
 
     /**
      * returns the number of digits of $n
-     * @param   mixed   $n
-     * @return  integer|null
+     * @param   int|float   $n
+     * @return  int|null
      */
-    public function numberOfDigits($n)
+    public function numberOfDigits(int|float $n)
     {
-        if (!$this->isNumber($n)) {
-            return;
-        }
         return strlen((string) abs($this->int($n)));
     }
 
     /**
      * returns the number of fractional digits of $n
      * @param   float   $n
-     * @return  integer
+     * @return  int
      */
     public function numberOfFractionalDigits(float $n)
     {

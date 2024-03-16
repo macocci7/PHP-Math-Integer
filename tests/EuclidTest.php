@@ -9,11 +9,15 @@ require_once('vendor/autoload.php');
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Euclid;
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+ */
 final class EuclidTest extends TestCase
 {
-    public function test_run_can_run_euclidean_algorithm_correctly(): void
+    public static function provide_run_can_run_euclidean_algorithm_correctly(): array
     {
-        $cases = [
+        return [
             [ 'a' => -10, 'b' => -10, 'expect' => null, ],
             [ 'a' => -1, 'b' => -1, 'expect' => null, ],
             [ 'a' => 0, 'b' => 0, 'expect' => null, ],
@@ -242,15 +246,20 @@ final class EuclidTest extends TestCase
                 ],
             ],
         ];
-        $e = new Euclid();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $e->run($case['a'], $case['b']));
-        }
     }
 
-    public function test_gcd_can_return_gcd_correctly(): void
+    /**
+     * @dataProvider provide_run_can_run_euclidean_algorithm_correctly
+     */
+    public function test_run_can_run_euclidean_algorithm_correctly(int $a, int $b, array|null $expect): void
     {
-        $cases = [
+        $e = new Euclid();
+        $this->assertSame($expect, $e->run($a, $b));
+    }
+
+    public static function provide_gcd_can_return_gcd_correctly(): array
+    {
+        return [
             ['a' => -10, 'b' => -10, 'expect' => null, ],
             ['a' => -1, 'b' => -1, 'expect' => null, ],
             ['a' => 0, 'b' => 0, 'expect' => null, ],
@@ -267,15 +276,20 @@ final class EuclidTest extends TestCase
             ['a' => 6, 'b' => 9, 'expect' => 3, ],
             ['a' => 8, 'b' => 12, 'expect' => 4, ],
         ];
-        $e = new Euclid();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $e->gcd($case['a'], $case['b']));
-        }
     }
 
-    public function test_isGcdOf_can_judge_correctly(): void
+    /**
+     * @dataProvider provide_gcd_can_return_gcd_correctly
+     */
+    public function test_gcd_can_return_gcd_correctly(int $a, int $b, int|null $expect): void
     {
-        $cases = [
+        $e = new Euclid();
+        $this->assertSame($expect, $e->gcd($a, $b));
+    }
+
+    public static function provide_isGcdOf_can_judge_correctly(): array
+    {
+        return [
             ['c' => -10, 'a' => -10, 'b' => -10, 'expect' => false, ],
             ['c' => -1, 'a' => -1, 'b' => -1, 'expect' => false, ],
             ['c' => 0, 'a' => 0, 'b' => 0, 'expect' => false, ],
@@ -294,15 +308,20 @@ final class EuclidTest extends TestCase
             ['c' => 3, 'a' => 6, 'b' => 9, 'expect' => true, ],
             ['c' => 4, 'a' => 4, 'b' => 8, 'expect' => true, ],
         ];
-        $e = new Euclid();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $e->isGcdOf($case['c'], $case['a'], $case['b']));
-        }
     }
 
-    public function test_isCoprime_can_judge_correctly(): void
+    /**
+     * @dataProvider provide_isGcdOf_can_judge_correctly
+     */
+    public function test_isGcdOf_can_judge_correctly(int $c, int $a, int $b, bool $expect): void
     {
-        $cases = [
+        $e = new Euclid();
+        $this->assertSame($expect, $e->isGcdOf($c, $a, $b));
+    }
+
+    public static function provide_isCoprime_can_judge_correctly(): array
+    {
+        return [
             ['a' => -10, 'b' => -10, 'expect' => false, ],
             ['a' => -1, 'b' => -1, 'expect' => false, ],
             ['a' => -1, 'b' => 2, 'expect' => false, ],
@@ -320,9 +339,14 @@ final class EuclidTest extends TestCase
             ['a' => 4, 'b' => 6, 'expect' => false, ],
             ['a' => 4, 'b' => 9, 'expect' => true, ],
         ];
+    }
+
+    /**
+     * @dataProvider provide_isCoprime_can_judge_correctly
+     */
+    public function test_isCoprime_can_judge_correctly(int $a, int $b, bool $expect): void
+    {
         $e = new Euclid();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $e->isCoprime($case['a'], $case['b']));
-        }
+        $this->assertSame($expect, $e->isCoprime($a, $b));
     }
 }

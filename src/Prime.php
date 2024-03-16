@@ -4,6 +4,12 @@ namespace Macocci7\PhpMathInteger;
 
 use Macocci7\PhpMathInteger\Number;
 
+/**
+ * class for treating matters of primes
+ * @author  macocci7 <macocci7@yahoo.co.jp>
+ * @license MIT
+ * @SuppressWarnings(PHPMD.ElseExpression)
+ */
 class Prime extends Number
 {
     /**
@@ -11,11 +17,12 @@ class Prime extends Number
      */
     public function __construct()
     {
+        parent::__construct();
     }
 
     /**
      * judges if the number is prime or not
-     * @param   integer $n
+     * @param   int     $n
      * @return  bool
      */
     public function isPrime(int $n)
@@ -33,7 +40,7 @@ class Prime extends Number
 
     /**
      * judges if all elements of the array are primes or not
-     * @param   array   $elements
+     * @param   mixed[]     $elements
      * @return  bool
      */
     public function isPrimeAll(array $elements)
@@ -51,8 +58,8 @@ class Prime extends Number
 
     /**
      * returns the next prime
-     * @param   integer $n
-     * @return  integer
+     * @param   int     $n
+     * @return  int
      */
     public function next(int $n)
     {
@@ -65,15 +72,20 @@ class Prime extends Number
 
     /**
      * returns primes between $a and $b
-     * @param   integer $a
-     * @param   integer $b
-     * @return  array
+     * @param   int     $a
+     * @param   int     $b
+     * @return  int[]
+     * @thrwon  \Exception
      */
     public function between(int $a, int $b)
     {
+        if ($a < 2 || $b < 2) {
+            throw new \Exception("Specify numbers greater than 1.");
+        }
         $primes = [];
-        $i = $a;
-        while ($i <= $b) {
+        $i = $a < $b ? $a : $b;
+        $u = $a < $b ? $b : $a;
+        while ($i <= $u) {
             if ($this->isPrime($i)) {
                 $primes[] = $i;
             }
@@ -84,13 +96,13 @@ class Prime extends Number
 
     /**
      * factorizes the number
-     * @param   integer $n
-     * @return  array
+     * @param   int     $n
+     * @return  list<array<int, int>>|null
      */
     public function factorize(int $n)
     {
         if (!$this->isNatural($n)) {
-            return;
+            return null;
         }
         $i = 0;
         $factors = [ 0 => [null, $n], ];
@@ -117,13 +129,13 @@ class Prime extends Number
 
     /**
      * returns the factors of the number
-     * @param   integer $n
-     * @return  array
+     * @param   int     $n
+     * @return  int[]|null
      */
     public function factors(int $n)
     {
         if (!$this->isNatural($n)) {
-            return;
+            return null;
         }
         $factors = [];
         foreach ($this->factorize($n) as $f) {
@@ -138,15 +150,15 @@ class Prime extends Number
 
     /**
      * counts the same elements in array
-     * @param   array   $array
-     * @return  array
+     * @param   mixed[]     $array
+     * @return  int[]|null
      */
     public function countSameElements(array $array)
     {
         $r = [];
         foreach ($array as $a) {
             if (!$this->isPrime($a)) {
-                return;
+                return null;
             }
             $r[$a] = isset($r[$a]) ? $r[$a] + 1 : 1;
         }
@@ -155,20 +167,28 @@ class Prime extends Number
 
     /**
      * returns the factorized formula of the number
-     * @param   integer $n
-     * @return  array
+     * @param   int     $n
+     * @return  null|array{
+     *  factors: list<
+     *      array{
+     *          base: int,
+     *          exp: int,
+     *      }
+     *  >,
+     *  formula: string,
+     * }
      */
     public function factorizedFormula(int $n)
     {
         if (!$this->isNatural($n)) {
-            return;
+            return null;
+        }
+        $f = $this->countSameElements($this->factors($n));
+        if (is_null($f)) {
+            return null;
         }
         $r = [];
         $t = [];
-        $f = $this->countSameElements($this->factors($n));
-        if (is_null($f)) {
-            return;
-        }
         foreach (array_keys($f) as $base) {
             $r[] = ['base' => $base, 'exp' => $f[$base], ];
             $t[] = $base . ($f[$base] > 1 ? ' ^ ' . $f[$base] : '');

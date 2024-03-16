@@ -4,26 +4,36 @@ namespace Macocci7\PhpMathInteger;
 
 use Macocci7\PhpMathInteger\Prime;
 
+/**
+ * class for treating matters of divisors
+ * @author  macocci7 <macocci7@yahoo.co.jp>
+ * @license MIT
+ * @SuppressWarnings(PHPMD.ElseExpression)
+ */
 class Divisor extends Prime
 {
-    private $divisors;
+    /**
+     * @var int[]   $divisors
+     */
+    private array $divisors;
 
     /**
      * constructor
      */
     public function __construct()
     {
+        parent::__construct();
     }
 
     /**
      * counts the number of divisors of $n
-     * @param   integer $n
-     * @return  integer|null
+     * @param   int         $n
+     * @return  int|null
      */
-    public function count($n)
+    public function count(int $n)
     {
         if (!$this->isNatural($n)) {
-            return;
+            return null;
         }
         if (1 === $n) {
             return 1;
@@ -38,13 +48,13 @@ class Divisor extends Prime
 
     /**
      * retrun value from factors
-     * @param   array   $factors
-     * @return  integer|null
+     * @param   array<int, int>     $factors
+     * @return  int|null
      */
     public function value(array $factors)
     {
         if (empty($factors)) {
-            return;
+            return null;
         }
         /**
          * the structure of $factors must be as follows
@@ -70,7 +80,7 @@ class Divisor extends Prime
         $v = 1;
         foreach ($factors as $radix => $exp) {
             if ($radix === 0) {
-                return;
+                return null;
             }
             $v *= $radix ** $exp;
         }
@@ -79,13 +89,13 @@ class Divisor extends Prime
 
     /**
      * returns the formula with prime factors of $n
-     * @param   integer $n
+     * @param   int         $n
      * @return  string|null
      */
     public function formula(int $n)
     {
         if (!$this->isNatural($n)) {
-            return;
+            return null;
         }
         if (1 === $n) {
             return '1';
@@ -99,13 +109,13 @@ class Divisor extends Prime
 
     /**
      * calculates divisors recursively
-     * @param   integer $v
-     * @param   integer $k
-     * @param   array   $e
-     * @param   array   $m
+     * @param   int             $v
+     * @param   int             $k
+     * @param   int[]           $e
+     * @param   array<int, int> $m
      * @return  void
      */
-    public function calcR(int $v, int $k, array $e, array $m)
+    private function calcR(int $v, int $k, array $e, array $m)
     {
         for ($i = 0; $i <= $m[$e[$k]]; $i++) {
             if ($k > 0) {
@@ -118,13 +128,13 @@ class Divisor extends Prime
 
     /**
      * lists divisors
-     * @param   integer $n
-     * @return  array
+     * @param   int     $n
+     * @return  int[]|null
      */
     public function list(int $n)
     {
         if (!$this->isNatural($n)) {
-            return;
+            return null;
         }
         if (1 === $n) {
             return [1];
@@ -144,9 +154,9 @@ class Divisor extends Prime
 
     /**
      * returns common factors
-     * @param   integer $n1
-     * @param   integer $n2
-     * @return  array
+     * @param   int     $n1
+     * @param   int     $n2
+     * @return  array<int, int>|null
      */
     public function commonFactors(int $n1, int $n2)
     {
@@ -160,11 +170,8 @@ class Divisor extends Prime
          * 108 = (2 ** 2) * (3 ** 3)
          * ==> common factors: (2 ** 2) * (3 ** 2)
          */
-        if (!$this->isIntAll([$n1, $n2])) {
-            return;
-        }
         if ($n1 < 2 || $n2 < 2) {
-            return;
+            return null;
         }
         $f1 = $this->factors($n1);
         $f2 = $this->factors($n2);
@@ -176,9 +183,10 @@ class Divisor extends Prime
             if (array_key_exists($e, $m2)) {
                 $ex1 = $m1[$e];
                 $ex2 = $m2[$e];
-                $cf[$e] = ( $ex1 === $ex2 ? $ex1
-                                        : ( $ex1 > $ex2 ? $ex2 : $ex1 )
-                );
+                $cf[$e] = $ex1 === $ex2
+                        ? $ex1
+                        : ( $ex1 > $ex2 ? $ex2 : $ex1 )
+                        ;
             }
         }
         return $cf;
@@ -186,18 +194,18 @@ class Divisor extends Prime
 
     /**
      * returns the greatest common factor
-     * @param   integer $n1
-     * @param   integer $n2
-     * @return  integer|null
+     * @param   int         $n1
+     * @param   int         $n2
+     * @return  int|null
      */
     public function greatestCommonFactor(int $n1, int $n2)
     {
         if ($n1 < 1 || $n2 < 1) {
-            return;
+            return null;
         }
         $cf = $this->commonFactors($n1, $n2);
         if (is_null($cf)) {
-            return;
+            return null;
         }
         $ec = array_keys($cf);
         $ncf = 1;
@@ -209,14 +217,14 @@ class Divisor extends Prime
 
     /**
      * returns common divisors
-     * @param   integer $n1
-     * @param   integer $n2
-     * @return  array
+     * @param   int         $n1
+     * @param   int         $n2
+     * @return  int[]|null
      */
     public function commonDivisors(int $n1, int $n2)
     {
         if ($n1 < 1 || $n2 < 1) {
-            return;
+            return null;
         }
         $gcf = $this->greatestCommonFactor($n1, $n2);
         return is_null($gcf) ? null : $this->list($gcf);
@@ -224,9 +232,9 @@ class Divisor extends Prime
 
     /**
      * removes divisors $d2 from divisors $d1
-     * @param   array   $d1
-     * @param   array   $d2
-     * @return  array|null
+     * @param   array<int, int>         $d1
+     * @param   array<int, int>         $d2
+     * @return  array<int, int>|null
      */
     public function removeDivisors(array $d1, array $d2)
     {
@@ -247,14 +255,14 @@ class Divisor extends Prime
 
     /**
      * reduces fraction
-     * @param   integer $n1
-     * @param   integer $n2
-     * @return  array|null
+     * @param   int         $n1
+     * @param   int         $n2
+     * @return  array<int, array<int, int>>|null
      */
     public function reduceFraction(int $n1, int $n2)
     {
         if ($n1 < 2 || $n2 < 2) {
-            return;
+            return null;
         }
         $f1 = $this->factors($n1);
         $f2 = $this->factors($n2);

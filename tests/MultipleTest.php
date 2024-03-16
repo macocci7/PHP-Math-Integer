@@ -9,11 +9,14 @@ require_once('vendor/autoload.php');
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Multiple;
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ */
 final class MultipleTest extends TestCase
 {
-    public function test_leastCommonMultipleFactors_can_return_value_correctly(): void
+    public static function provide_leastCommonMultipleFactors_can_return_value_correctly(): array
     {
-        $cases = [
+        return [
             ['n1' => -10, 'n2' => -10, 'expect' => null, ],
             ['n1' => -1, 'n2' => -1, 'expect' => null, ],
             ['n1' => 0, 'n2' => 0, 'expect' => null, ],
@@ -44,15 +47,20 @@ final class MultipleTest extends TestCase
             ['n1' => 4, 'n2' => 6, 'expect' => [ 2 => 2, 3 => 1, ], ],
             ['n1' => 4, 'n2' => 8, 'expect' => [ 2 => 3, ], ],
         ];
-        $m = new Multiple();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $m->leastCommonMultipleFactors($case['n1'], $case['n2']));
-        }
     }
 
-    public function test_leastCommonMultiple_can_return_value_correctly(): void
+    /**
+     * @dataProvider provide_leastCommonMultipleFactors_can_return_value_correctly
+     */
+    public function test_leastCommonMultipleFactors_can_return_value_correctly(int $n1, int $n2, array|null $expect): void
     {
-        $cases = [
+        $m = new Multiple();
+        $this->assertSame($expect, $m->leastCommonMultipleFactors($n1, $n2));
+    }
+
+    public static function provide_leastCommonMultiple_can_return_value_correctly(): array
+    {
+        return [
             ['n1' => -10, 'n2' => -10, 'expect' => null, ],
             ['n1' => -1, 'n2' => -1, 'expect' => null, ],
             ['n1' => 0, 'n2' => 0, 'expect' => null, ],
@@ -77,9 +85,14 @@ final class MultipleTest extends TestCase
             ['n1' => 4, 'n2' => 6, 'expect' => 12, ],
             ['n1' => 4, 'n2' => 8, 'expect' => 8, ],
         ];
+    }
+
+    /**
+     * @dataProvider provide_leastCommonMultiple_can_return_value_correctly
+     */
+    public function test_leastCommonMultiple_can_return_value_correctly(int $n1, int $n2, int|null $expect): void
+    {
         $m = new Multiple();
-        foreach ($cases as $case) {
-            $this->assertSame($case['expect'], $m->leastCommonMultiple($case['n1'], $case['n2']));
-        }
+        $this->assertSame($expect, $m->leastCommonMultiple($n1, $n2));
     }
 }

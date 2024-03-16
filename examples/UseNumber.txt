@@ -1,0 +1,16 @@
+Is 1 int? - Yes.
+Are [ 1, 2, 3, ] all int? - Yes.
+Is 1 natural? - Yes.
+Are [ 1, 2, 3, ] all natural? - Yes.
+Is 1.2 float? - Yes.
+Are [ -2.1, 0.0, 1.2, ] all float? - Yes.
+Is 1.2 number? - Yes.
+Are [ -2, 0.1, 3, ] all number? - Yes.
+Is 0.1 fraction? - Yes.
+Are [ -0.99, 0.1, 0.99, ] all fraction? - Yes.
+Sign of -2.5 is -1.
+Integer part of 3.14 is 3.
+Fractional part of 3.14 is 0.14.
+-3th digit of 123.4567 is 6.
+Number of digits -123.4567 is 3.
+Number of fractional digits -12.3456 is 4.

@@ -40,7 +40,7 @@ $f2 = new Fraction('1/6');
 echo $f1->text() . ' + ' . $f2->text() . ' = ' . $f1->add($f2)->text() . "\n";
 $f1->set('2/3');
 $f2->set('1/6');
-echo $f1->text() . ' - ' . $f2->text() . ' = ' . $f1->substruct($f2)->text() . "\n";
+echo $f1->text() . ' - ' . $f2->text() . ' = ' . $f1->substract($f2)->text() . "\n";
 $f1->set('2/3');
 $f2->set('1/6');
 echo $f1->text() . ' * ' . $f2->text() . ' = ' . $f1->multiply($f2)->text() . "\n";

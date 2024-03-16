@@ -1,17 +1,12 @@
 <?php
 
-/**
- * Examples of operation with
- * Macocci7\PhpMathInteger\Bezout
- */
-
- require_once('../vendor/autoload.php');
+require_once('../vendor/autoload.php');
 
 use Macocci7\PhpMathInteger\Bezout;
 
-// Bezout's Equation: 3x + 4y = 1
+// Bezout's Identity: 3x + 4y = 1
 $b = new Bezout([3, 4, 1, ]);
-echo sprintf("Bezout's Equation: %s\n", $b->equation());
+echo sprintf("Bezout's Identity: %s\n", $b->identity());
 
 // Solvable or not
 echo sprintf("Is it solvable? - %s.\n", ($b->isSolvable() ? 'Yes' : 'No'));

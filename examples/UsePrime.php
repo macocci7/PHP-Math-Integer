@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Examples of operation with
- * Macocci7\PhpMathInteger\Prime
- */
-
  require_once('../vendor/autoload.php');
 
 use Macocci7\PhpMathInteger\Prime;

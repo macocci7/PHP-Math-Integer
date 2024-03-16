@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Examples of operation with
- * Macocci7\PhpMathInteger\Euclid
- */
-
- require_once('../vendor/autoload.php');
+require_once('../vendor/autoload.php');
 
 use Macocci7\PhpMathInteger\Euclid;
 
