@@ -1,6 +1,6 @@
 {
     "name": "macocci7/php-math-integer",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "PHP Math Library of the subjects of number theory(only natural number).",
     "type": "library",
     "license": "MIT",
