@@ -6,6 +6,7 @@ namespace Macocci7\PhpMathInteger;
 
 require_once('vendor/autoload.php');
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Multiple;
 
@@ -49,9 +50,7 @@ final class MultipleTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_leastCommonMultipleFactors_can_return_value_correctly
-     */
+    #[DataProvider('provide_leastCommonMultipleFactors_can_return_value_correctly')]
     public function test_leastCommonMultipleFactors_can_return_value_correctly(int $n1, int $n2, array|null $expect): void
     {
         $m = new Multiple();
@@ -87,9 +86,7 @@ final class MultipleTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_leastCommonMultiple_can_return_value_correctly
-     */
+    #[DataProvider('provide_leastCommonMultiple_can_return_value_correctly')]
     public function test_leastCommonMultiple_can_return_value_correctly(int $n1, int $n2, int|null $expect): void
     {
         $m = new Multiple();

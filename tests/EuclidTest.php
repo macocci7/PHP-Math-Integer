@@ -6,6 +6,7 @@ namespace Macocci7\PhpMathInteger;
 
 require_once('vendor/autoload.php');
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Euclid;
 
@@ -248,9 +249,7 @@ final class EuclidTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_run_can_run_euclidean_algorithm_correctly
-     */
+    #[DataProvider('provide_run_can_run_euclidean_algorithm_correctly')]
     public function test_run_can_run_euclidean_algorithm_correctly(int $a, int $b, array|null $expect): void
     {
         $e = new Euclid();
@@ -278,9 +277,7 @@ final class EuclidTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_gcd_can_return_gcd_correctly
-     */
+    #[DataProvider('provide_gcd_can_return_gcd_correctly')]
     public function test_gcd_can_return_gcd_correctly(int $a, int $b, int|null $expect): void
     {
         $e = new Euclid();
@@ -310,9 +307,7 @@ final class EuclidTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isGcdOf_can_judge_correctly
-     */
+    #[DataProvider('provide_isGcdOf_can_judge_correctly')]
     public function test_isGcdOf_can_judge_correctly(int $c, int $a, int $b, bool $expect): void
     {
         $e = new Euclid();
@@ -341,9 +336,7 @@ final class EuclidTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isCoprime_can_judge_correctly
-     */
+    #[DataProvider('provide_isCoprime_can_judge_correctly')]
     public function test_isCoprime_can_judge_correctly(int $a, int $b, bool $expect): void
     {
         $e = new Euclid();
