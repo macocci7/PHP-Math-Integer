@@ -6,6 +6,7 @@ namespace Macocci7\PhpMathInteger;
 
 require_once('vendor/autoload.php');
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Divisor;
 
@@ -39,9 +40,7 @@ final class DivisorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_count_can_count_correctly
-     */
+    #[DataProvider('provide_count_can_count_correctly')]
     public function test_count_can_count_correctly(int $param, int|null $expect): void
     {
         $d = new Divisor();
@@ -71,9 +70,7 @@ final class DivisorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_value_can_return_value_correctly
-     */
+    #[DataProvider('provide_value_can_return_value_correctly')]
     public function test_value_can_return_value_correctly(array $f, int|null $expect): void
     {
         $d = new Divisor();
@@ -114,9 +111,7 @@ final class DivisorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_formula_can_return_formula_correctly
-     */
+    #[DataProvider('provide_formula_can_return_formula_correctly')]
     public function test_formula_can_return_formula_correctly(int $n, string|null $expect): void
     {
         $d = new Divisor();
@@ -144,9 +139,7 @@ final class DivisorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_list_can_list_divisors_correctly
-     */
+    #[DataProvider('provide_list_can_list_divisors_correctly')]
     public function test_list_can_list_divisors_correctly(int $param, array|null $expect): void
     {
         $d = new Divisor();
@@ -169,9 +162,7 @@ final class DivisorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_commonFactors_can_return_common_factors_correctly
-     */
+    #[DataProvider('provide_commonFactors_can_return_common_factors_correctly')]
     public function test_commonFactors_can_return_common_factors_correctly(int $n1, int $n2, array|null $expect): void
     {
         $d = new Divisor();
@@ -205,9 +196,7 @@ final class DivisorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_greatestCommonFactor_can_return_great_common_factor_correctly
-     */
+    #[DataProvider('provide_greatestCommonFactor_can_return_great_common_factor_correctly')]
     public function test_greatestCommonFactor_can_return_great_common_factor_correctly(int $n1, int $n2, int|null $expect): void
     {
         $d = new Divisor();
@@ -237,9 +226,7 @@ final class DivisorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_commonDivisors_can_list_common_divisors_correctly
-     */
+    #[DataProvider('provide_commonDivisors_can_list_common_divisors_correctly')]
     public function test_commonDivisors_can_list_common_divisors_correctly(int $n1, int $n2, array|null $expect): void
     {
         $d = new Divisor();
@@ -276,9 +263,7 @@ final class DivisorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_removeDivisors_can_remove_divisors_correctly
-     */
+    #[DataProvider('provide_removeDivisors_can_remove_divisors_correctly')]
     public function test_removeDivisors_can_remove_divisors_correctly(array $d1, array $d2, array $expect): void
     {
         $d = new Divisor();
@@ -301,9 +286,7 @@ final class DivisorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_reduceFraction_can_reduce_fraction_correctly
-     */
+    #[DataProvider('provide_reduceFraction_can_reduce_fraction_correctly')]
     public function test_reduceFraction_can_reduce_fraction_correctly(int $n1, int $n2, array|null $expect): void
     {
         $d = new Divisor();

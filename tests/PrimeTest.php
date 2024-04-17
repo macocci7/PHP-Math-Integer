@@ -6,6 +6,7 @@ namespace Macocci7\PhpMathInteger;
 
 require_once('vendor/autoload.php');
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Prime;
 
@@ -34,9 +35,7 @@ final class PrimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isPrime_can_judge_correctly
-     */
+    #[DataProvider('provide_isPrime_can_judge_correctly')]
     public function test_isPrime_can_judge_correctly(int $param, bool $expect): void
     {
         $p = new Prime();
@@ -62,13 +61,37 @@ final class PrimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isPrimeAll_can_judge_correctly
-     */
+    #[DataProvider('provide_isPrimeAll_can_judge_correctly')]
     public function test_isPrimeAll_can_judge_correctly(array $param, bool $expect): void
     {
         $p = new Prime();
         $this->assertSame($expect, $p->isPrimeAll($param));
+    }
+
+    public static function provide_previous_can_return_previous_prime_correctly(): array
+    {
+        return [
+            ['param' => -1, 'expect' => null,],
+            ['param' => 0, 'expect' => null,],
+            ['param' => 1, 'expect' => null,],
+            ['param' => 2, 'expect' => null,],
+            ['param' => 3, 'expect' => 2,],
+            ['param' => 4, 'expect' => 3,],
+            ['param' => 5, 'expect' => 3,],
+            ['param' => 6, 'expect' => 5,],
+            ['param' => 7, 'expect' => 5,],
+            ['param' => 8, 'expect' => 7,],
+            ['param' => 9, 'expect' => 7,],
+            ['param' => 10, 'expect' => 7,],
+            ['param' => 11, 'expect' => 7,],
+        ];
+    }
+
+    #[DataProvider('provide_previous_can_return_previous_prime_correctly')]
+    public function test_previous_can_return_previous_prime_correctly(int $param, int|null $expect): void
+    {
+        $p = new Prime();
+        $this->assertSame($p->previous($param), $expect);
     }
 
     public static function provide_next_can_return_next_prime_correctly(): array
@@ -85,9 +108,7 @@ final class PrimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_next_can_return_next_prime_correctly
-     */
+    #[DataProvider('provide_next_can_return_next_prime_correctly')]
     public function test_next_can_return_next_prime_correctly(int $param, int $expect): void
     {
         $p = new Prime();
@@ -111,9 +132,7 @@ final class PrimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_between_can_throw_exception_with_invalid_params
-     */
+    #[DataProvider('provide_between_can_throw_exception_with_invalid_params')]
     public function test_between_can_throw_exception_with_invalid_params(int $a, int $b, string $message): void
     {
         $p = new Prime();
@@ -169,9 +188,7 @@ final class PrimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_between_can_return_primes_correctly
-     */
+    #[DataProvider('provide_between_can_return_primes_correctly')]
     public function test_between_can_return_primes_correctly(int $a, int $b, array $expect): void
     {
         $p = new Prime();
@@ -199,9 +216,7 @@ final class PrimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_factorize_can_factorize_correctly
-     */
+    #[DataProvider('provide_factorize_can_factorize_correctly')]
     public function test_factorize_can_factorize_correctly(int $param, array|null $expect): void
     {
         $p = new Prime();
@@ -229,9 +244,7 @@ final class PrimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_factors_can_return_factors_correctly
-     */
+    #[DataProvider('provide_factors_can_return_factors_correctly')]
     public function test_factors_can_return_factors_correctly(int $param, array|null $expect): void
     {
         $p = new Prime();
@@ -249,9 +262,7 @@ final class PrimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_countSameElements_can_return_result_correctly
-     */
+    #[DataProvider('provide_countSameElements_can_return_result_correctly')]
     public function test_countSameElements_can_return_result_correctly(array $param, array|null $expect): void
     {
         $p = new Prime();
@@ -281,9 +292,7 @@ final class PrimeTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_factorizedFormula_can_return_formula_correctly
-     */
+    #[DataProvider('provide_factorizedFormula_can_return_formula_correctly')]
     public function test_factorizedFormula_can_return_formula_correctly(int $param, array|null $expect): void
     {
         $p = new Prime();

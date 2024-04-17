@@ -6,6 +6,7 @@ namespace Macocci7\PhpMathInteger;
 
 require_once('vendor/autoload.php');
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Fraction;
 
@@ -27,9 +28,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_set_can_throw_exception_with_invalid_param
-     */
+    #[DataProvider('provide_set_can_throw_exception_with_invalid_param')]
     public function test_set_can_throw_exception_with_invalid_param(string $param, string $message): void
     {
         $f = new Fraction();
@@ -48,9 +47,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_set_can_set_values_correctly
-     */
+    #[DataProvider('provide_set_can_set_values_correctly')]
     public function test_set_can_set_values_correctly(string $param, array $expect): void
     {
         $f = new Fraction();
@@ -82,9 +79,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isReduced_can_judge_correctly
-     */
+    #[DataProvider('provide_isReduced_can_judge_correctly')]
     public function test_isReduced_can_judge_correctly(int|null $w, int $n, int $d, bool $expect): void
     {
         $f = new Fraction();
@@ -115,9 +110,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isProper_can_judge_correctly
-     */
+    #[DataProvider('provide_isProper_can_judge_correctly')]
     public function test_isProper_can_judge_correctly(int|null $w, int $n, int $d, bool $expect): void
     {
         $f = new Fraction();
@@ -149,9 +142,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isImproper_can_judge_correctly
-     */
+    #[DataProvider('provide_isImproper_can_judge_correctly')]
     public function test_isImproper_can_judge_correctly(int|null $w, int $n, int $d, bool $expect): void
     {
         $f = new Fraction();
@@ -180,9 +171,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isMixed_can_judge_correctly
-     */
+    #[DataProvider('provide_isMixed_can_judge_correctly')]
     public function test_isMixed_can_judge_correctly(int|null $w, int|null $n, int|null $d, bool $expect): void
     {
         $f = new Fraction();
@@ -226,9 +215,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_reduce_can_reduce_fraction_correctly
-     */
+    #[DataProvider('provide_reduce_can_reduce_fraction_correctly')]
     public function test_reduce_can_reduce_fraction_correctly(array $preset, array $expect): void
     {
         $f = new Fraction();
@@ -269,9 +256,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_add_can_throw_exception_with_invalid_preset
-     */
+    #[DataProvider('provide_add_can_throw_exception_with_invalid_preset')]
     public function test_add_can_throw_exception_with_invalid_preset(array $preset1, array $preset2): void
     {
         $f1 = new Fraction();
@@ -324,9 +309,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_add_can_add_a_fraction_correctly
-     */
+    #[DataProvider('provide_add_can_add_a_fraction_correctly')]
     public function test_add_can_add_a_fraction_correctly(array $preset1, array $preset2, array $expect): void
     {
         $f1 = new Fraction();
@@ -371,9 +354,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_substract_can_throw_exception_with_invalid_preset
-     */
+    #[DataProvider('provide_substract_can_throw_exception_with_invalid_preset')]
     public function test_substract_can_throw_exception_with_invalid_preset(array $preset1, array $preset2): void
     {
         $f1 = new Fraction();
@@ -426,9 +407,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_substract_can_substract_a_fraction_correctly
-     */
+    #[DataProvider('provide_substract_can_substract_a_fraction_correctly')]
     public function test_substract_can_substract_a_fraction_correctly(array $preset1, array $preset2, array $expect): void
     {
         $f1 = new Fraction();
@@ -473,9 +452,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_multiply_can_throw_exception_with_invalid_preset
-     */
+    #[DataProvider('provide_multiply_can_throw_exception_with_invalid_preset')]
     public function test_multiply_can_throw_exception_with_invalid_preset(array $preset1, array $preset2): void
     {
         $f1 = new Fraction();
@@ -528,9 +505,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_multiply_can_multiply_by_a_fraction_correctly
-     */
+    #[DataProvider('provide_multiply_can_multiply_by_a_fraction_correctly')]
     public function test_multiply_can_multiply_by_a_fraction_correctly(array $preset1, array $preset2, array $expect): void
     {
         $f1 = new Fraction();
@@ -575,9 +550,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_divide_can_throw_exception_with_invalid_denominator
-     */
+    #[DataProvider('provide_divide_can_throw_exception_with_invalid_denominator')]
     public function test_divide_can_throw_exception_with_invalid_denominator(array $preset1, array $preset2): void
     {
         $f1 = new Fraction();
@@ -604,9 +577,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_divide_can_throw_exception_with_invalid_divisor
-     */
+    #[DataProvider('provide_divide_can_throw_exception_with_invalid_divisor')]
     public function test_divide_can_throw_exception_with_invalid_divisor(array $preset1, array $preset2): void
     {
         $f1 = new Fraction();
@@ -654,9 +625,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_divide_can_divide_by_a_fraction_correctly
-     */
+    #[DataProvider('provide_divide_can_divide_by_a_fraction_correctly')]
     public function test_divide_can_divide_by_a_fraction_correctly(array $preset1, array $preset2, array $expect): void
     {
         $f1 = new Fraction();
@@ -713,9 +682,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_mixed_can_make_mixed_fraction_correctly
-     */
+    #[DataProvider('provide_mixed_can_make_mixed_fraction_correctly')]
     public function test_mixed_can_make_mixed_fraction_correctly(array $preset, array $expect): void
     {
         $f = new Fraction();
@@ -758,9 +725,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_int_can_return_integer_correctly
-     */
+    #[DataProvider('provide_int_can_return_integer_correctly')]
     public function test_int_can_return_integer_correctly(int|null $w, int|null $n, int|null $d, int|null $expect): void
     {
         $f = new Fraction();
@@ -800,9 +765,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_float_can_return_float_correctly
-     */
+    #[DataProvider('provide_float_can_return_float_correctly')]
     public function test_float_can_return_float_correctly(int|null $w, int|null $n, int|null $d, float|null $expect): void
     {
         $f = new Fraction();
@@ -828,9 +791,7 @@ final class FractionTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_text_can_return_text_correctly
-     */
+    #[DataProvider('provide_text_can_return_text_correctly')]
     public function test_text_can_return_text_correctly(int|null $w, int|null $n, int|null $d, string|null $expect): void
     {
         $f = new Fraction();

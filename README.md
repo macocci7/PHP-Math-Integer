@@ -149,20 +149,24 @@ This class treats basic matters of primes.
   // judge if all of $n are prime or not
   $n = [ 2, 3, 5, ];
   echo sprintf(
-      "Are all of [%s] prime? - %s.\n",
+      "Are all of [%s] prime? - %s.\n\n",
       implode(', ', $n),
       $p->isPrimeAll($n) ? 'Yes' : 'No'
   );
 
+  // a prime previous to $n
+  $n = 5;
+  echo sprintf("A prime previous to %d is %d.\n", $n, $p->previous($n));
+
   // a prime next to $n
   $n = 5;
-  echo sprintf("A prime next to %d is %d.\n", $n, $p->next($n));
+  echo sprintf("A prime next to %d is %d.\n\n", $n, $p->next($n));
 
   // primes between $a and $b
   $a = 6;
   $b = 14;
   echo sprintf(
-      "Primes between %d and %d are [%s].\n",
+      "Primes between %d and %d are [%s].\n\n",
       $a,
       $b,
       implode(', ', $p->between($a, $b))
@@ -170,12 +174,14 @@ This class treats basic matters of primes.
 
   // factorize
   $n = 1234567890;
-  echo sprintf("Factorize %d:\n", $n);
+  echo sprintf("Factorize %d:\n\n", $n);
+
   $r = $p->factorize($n);
   $l1 = $p->numberOfDigits(max(array_column($r, 0)));
   $l2 = $p->numberOfDigits(max(array_column($r, 1)));
   $s = str_repeat(' ', $l1 + 1);
   $b = $s . str_repeat('-', $l2);
+
   foreach ($r as $f) {
       echo (
           $f[0]
@@ -183,6 +189,7 @@ This class treats basic matters of primes.
           : sprintf("%s%" . $l2 . "d\n", $s, $f[1])
       );
   }
+  echo "\n";
 
   // Factorized formula
   echo $n . " = " . $p->factorizedFormula($n)['formula'] . "\n";
@@ -193,9 +200,14 @@ This class treats basic matters of primes.
   ```
   Is 3 prime? - Yes.
   Are all of [2, 3, 5] prime? - Yes.
+
+  A prime previous to 5 is 3.
   A prime next to 5 is 7.
+
   Primes between 6 and 14 are [7, 11, 13].
+
   Factorize 1234567890:
+
     2)1234567890
       ----------
     3) 617283945
@@ -207,6 +219,7 @@ This class treats basic matters of primes.
   3607)  13717421
       ----------
             3803
+
   1234567890 = 2 * 3 ^ 2 * 5 * 3607 * 3803
   ```
 
@@ -216,6 +229,7 @@ This class treats basic matters of primes.
   |:---|:---|
   |`isPrime(int $n)`|judges if the param is prime or not|
   |`isPrimeAll(array $elements)`|judges if all of the param are prime or not|
+  |`previous(int $n)`|returns a prime previous to the param|
   |`next(int $n)`|returns a prime next to the param|
   |`between(int $a, int $b)`|returns array of primes between the params|
   |`factorize(int $n)`|factorize the param and returns the process as an array|
@@ -593,6 +607,6 @@ This class treats basic matters of Bezout's Identity.
 
 *Document Created: 2023/10/19*
 
-*Document Updated: 2024/03/16*
+*Document Updated: 2024/04/17*
 
 Copyright 2023 - 2024 macocci7

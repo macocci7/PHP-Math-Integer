@@ -57,6 +57,23 @@ class Prime extends Number
     }
 
     /**
+     * returns the previous prime
+     * @param   int     $n
+     * @return  int|null
+     */
+    public function previous(int $n)
+    {
+        if ($n <= 2) {
+            return null;
+        }
+        $i = $n - 1;
+        while (!$this->isPrime($i)) {
+            --$i;
+        }
+        return $i;
+    }
+
+    /**
      * returns the next prime
      * @param   int     $n
      * @return  int
@@ -65,7 +82,7 @@ class Prime extends Number
     {
         $i = $n > 1 ? $n + 1 : 2;
         while (!$this->isPrime($i)) {
-            $i++;
+            ++$i;
         }
         return $i;
     }
@@ -122,7 +139,7 @@ class Prime extends Number
                     break;
                 }
             }
-            $i++;
+            ++$i;
         }
         return $factors;
     }

@@ -6,6 +6,7 @@ namespace Macocci7\PhpMathInteger;
 
 require_once('vendor/autoload.php');
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Bezout;
 
@@ -34,9 +35,7 @@ final class BezoutTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_set_can_throw_exception_with_invalid_param
-     */
+    #[DataProvider('provide_set_can_throw_exception_with_invalid_param')]
     public function test_set_can_throw_exception_with_invalid_param(array $param, string $message): void
     {
         $b = new Bezout();
@@ -53,9 +52,7 @@ final class BezoutTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_set_can_set_coefficients_correctly
-     */
+    #[DataProvider('provide_set_can_set_coefficients_correctly')]
     public function test_set_can_set_coefficients_correctly(array $param, array $expect): void
     {
         $b = new Bezout();
@@ -74,9 +71,7 @@ final class BezoutTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_clear_can_clear_coefficients_correctly
-     */
+    #[DataProvider('provide_clear_can_clear_coefficients_correctly')]
     public function test_clear_can_clear_coeffecients_correctly(array $preset, array $expect): void
     {
         $b = new Bezout($preset);
@@ -99,9 +94,7 @@ final class BezoutTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_identity_can_return_identity_correctly
-     */
+    #[DataProvider('provide_identity_can_return_identity_correctly')]
     public function test_identity_can_return_identity_correctly(array $preset, string|null $expect): void
     {
         $b = new Bezout($preset);
@@ -130,9 +123,7 @@ final class BezoutTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isSolvable_can_judge_correctly
-     */
+    #[DataProvider('provide_isSolvable_can_judge_correctly')]
     public function test_isSolvable_can_judge_correctly(int|null $a, int|null $b, int|null $c, bool $expect): void
     {
         $bz = new Bezout();
@@ -153,9 +144,7 @@ final class BezoutTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_solution_can_return_a_solution_set_correctly
-     */
+    #[DataProvider('provide_solution_can_return_a_solution_set_correctly')]
     public function test_solution_can_return_a_solution_set_correctly(array $preset, array $expect): void
     {
         $b = new Bezout();
@@ -203,9 +192,7 @@ final class BezoutTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_generalSolution_can_return_general_solution_correctly
-     */
+    #[DataProvider('provide_generalSolution_can_return_general_solution_correctly')]
     public function test_generalSolution_can_return_general_solution_correctly(array $preset, array $expect): void
     {
         $b = new Bezout();

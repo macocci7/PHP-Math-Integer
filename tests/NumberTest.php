@@ -6,6 +6,7 @@ namespace Macocci7\PhpMathInteger;
 
 require_once('vendor/autoload.php');
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Number;
 
@@ -33,9 +34,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isInt_can_judge_correctly
-     */
+    #[DataProvider('provide_isInt_can_judge_correctly')]
     public function test_isInt_can_judge_correctly(mixed $param, bool $expect): void
     {
         $n = new Number();
@@ -52,9 +51,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isIntAll_can_judge_correctly
-     */
+    #[DataProvider('provide_isIntAll_can_judge_correctly')]
     public function test_isIntAll_can_judge_correctly(array $param, bool $expect): void
     {
         $n = new Number();
@@ -77,9 +74,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isNatural_can_judge_correctly
-     */
+    #[DataProvider('provide_isNatural_can_judge_correctly')]
     public function test_isNatural_can_judge_correctly(mixed $param, bool $expect): void
     {
         $n = new Number();
@@ -98,9 +93,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isNaturalAll_can_judge_correctly
-     */
+    #[DataProvider('provide_isNaturalAll_can_judge_correctly')]
     public function test_isNaturalAll_can_judge_correctly(array $param, bool $expect): void
     {
         $n = new Number();
@@ -124,9 +117,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isFloat_can_judge_correctly
-     */
+    #[DataProvider('provide_isFloat_can_judge_correctly')]
     public function test_isFloat_can_judge_correctly(mixed $param, bool $expect): void
     {
         $n = new Number();
@@ -144,9 +135,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isFloatAll_can_judge_correctly
-     */
+    #[DataProvider('provide_isFloatAll_can_judge_correctly')]
     public function test_isFloatAll_can_judge_correctly(array $param, bool $expect): void
     {
         $n = new Number();
@@ -166,9 +155,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isNumber_can_judge_correctly
-     */
+    #[DataProvider('provide_isNumber_can_judge_correctly')]
     public function test_isNumber_can_judge_correctly(mixed $param, bool $expect): void
     {
         $n = new Number();
@@ -186,9 +173,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isNumberAll_can_judge_correctly
-     */
+    #[DataProvider('provide_isNumberAll_can_judge_correctly')]
     public function test_isNumberAll_can_judge_correctly(array $param, bool $expect): void
     {
         $n = new Number();
@@ -218,9 +203,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isFraction_can_judge_correctly
-     */
+    #[DataProvider('provide_isFraction_can_judge_correctly')]
     public function test_isFraction_can_judge_correctly(mixed $param, bool $expect): void
     {
         $n = new Number();
@@ -242,9 +225,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_isFractionAll_can_judge_correctly
-     */
+    #[DataProvider('provide_isFractionAll_can_judge_correctly')]
     public function test_isFractionAll_can_judge_correctly(array $param, bool $expect): void
     {
         $n = new Number();
@@ -264,9 +245,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_sign_can_return_sign_correctly
-     */
+    #[DataProvider('provide_sign_can_return_sign_correctly')]
     public function test_sign_can_return_sign_correctly(mixed $param, int|null $expect): void
     {
         $n = new Number();
@@ -283,9 +262,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_int_can_return_int_correctly
-     */
+    #[DataProvider('provide_int_can_return_int_correctly')]
     public function test_int_can_return_int_correctly(float $param, int $expect): void
     {
         $n = new Number();
@@ -304,9 +281,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_fraction_can_return_fraction_correctly
-     */
+    #[DataProvider('provide_fraction_can_return_fraction_correctly')]
     public function test_fraction_can_return_fraction_correctly(float $param, float $expect): void
     {
         $n = new Number();
@@ -328,9 +303,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_nthDigit_can_return_digit_correctly
-     */
+    #[DataProvider('provide_nthDigit_can_return_digit_correctly')]
     public function test_nthDigit_can_return_digit_correctly(int $nth, float $number, int|null $expect): void
     {
         $n = new Number();
@@ -363,9 +336,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_numberOfDigits_can_return_number_of_digits_correctly
-     */
+    #[DataProvider('provide_numberOfDigits_can_return_number_of_digits_correctly')]
     public function test_numberOfDigits_can_return_number_of_digits_correctly(int|float $param, int|null $expect): void
     {
         $n = new Number();
@@ -387,9 +358,7 @@ final class NumberTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provide_numberOfFractionalDigits_can_return_number_correctly
-     */
+    #[DataProvider('provide_numberOfFractionalDigits_can_return_number_correctly')]
     public function test_numberOfFractionalDigits_can_return_number_correctly(float $param, int $expect): void
     {
         $n = new Number();
