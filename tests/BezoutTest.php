@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Macocci7\PhpMathInteger;
 
-require_once('vendor/autoload.php');
-
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Bezout;

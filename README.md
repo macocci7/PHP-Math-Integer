@@ -61,7 +61,7 @@ This class treats basic matters of numbers.
   ```php
   <?php
 
-  require_once('../vendor/autoload.php');
+  require_once __DIR__ . '/../vendor/autoload.php';
 
   use Macocci7\PhpMathInteger\Number;
 
@@ -136,7 +136,7 @@ This class treats basic matters of primes.
   ```php
   <?php
 
-  require_once('../vendor/autoload.php');
+  require_once __DIR__ . '/../vendor/autoload.php';
 
   use Macocci7\PhpMathInteger\Prime;
 
@@ -245,7 +245,7 @@ This class treats basic matters of divisors.
   ```php
   <?php
 
-  require_once('../vendor/autoload.php');
+  require_once __DIR__ . '/../vendor/autoload.php';
 
   use Macocci7\PhpMathInteger\Divisor;
 
@@ -319,7 +319,7 @@ This class treats basic matters of multiples.
   ```php
   <?php
 
-  require_once('../vendor/autoload.php');
+  require_once __DIR__ . '/../vendor/autoload.php';
 
   use Macocci7\PhpMathInteger\Multiple;
 
@@ -357,7 +357,7 @@ This class treats basic matters of Euclidean Algorithm.
   ```php
   <?php
 
-  require_once('../vendor/autoload.php');
+  require_once __DIR__ . '/../vendor/autoload.php';
 
   use Macocci7\PhpMathInteger\Euclid;
 
@@ -440,7 +440,7 @@ This class treats basic matters of common fractions.
   ```php
   <?php
 
-  require_once('../vendor/autoload.php');
+  require_once __DIR__ . '/../vendor/autoload.php';
 
   use Macocci7\PhpMathInteger\Fraction;
 
@@ -547,7 +547,7 @@ This class treats basic matters of Bezout's Identity.
   ```php
   <?php
 
-  require_once('../vendor/autoload.php');
+  require_once __DIR__ . '/../vendor/autoload.php';
 
   use Macocci7\PhpMathInteger\Bezout;
 
@@ -607,6 +607,6 @@ This class treats basic matters of Bezout's Identity.
 
 *Document Created: 2023/10/19*
 
-*Document Updated: 2024/04/17*
+*Document Updated: 2024/04/18*
 
 Copyright 2023 - 2024 macocci7
