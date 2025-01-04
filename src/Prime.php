@@ -8,7 +8,6 @@ use Macocci7\PhpMathInteger\Number;
  * class for treating matters of primes
  * @author  macocci7 <macocci7@yahoo.co.jp>
  * @license MIT
- * @SuppressWarnings(PHPMD.ElseExpression)
  */
 class Prime extends Number
 {
@@ -114,7 +113,7 @@ class Prime extends Number
     /**
      * factorizes the number
      * @param   int     $n
-     * @return  list<array<int, int>>|null
+     * @return  list<array<int, int|null>>|null
      */
     public function factorize(int $n)
     {

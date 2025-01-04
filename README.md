@@ -605,8 +605,4 @@ This class treats basic matters of Bezout's Identity.
 
 ***
 
-*Document Created: 2023/10/19*
-
-*Document Updated: 2024/04/18*
-
-Copyright 2023 - 2024 macocci7
+Copyright 2023 - 2025 macocci7.

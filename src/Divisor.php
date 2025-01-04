@@ -8,7 +8,6 @@ use Macocci7\PhpMathInteger\Prime;
  * class for treating matters of divisors
  * @author  macocci7 <macocci7@yahoo.co.jp>
  * @license MIT
- * @SuppressWarnings(PHPMD.ElseExpression)
  */
 class Divisor extends Prime
 {
