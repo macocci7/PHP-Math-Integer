@@ -8,9 +8,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Multiple;
 
-/**
- * @SuppressWarnings(PHPMD.CamelCaseMethodName)
- */
 final class MultipleTest extends TestCase
 {
     public static function provide_leastCommonMultipleFactors_can_return_value_correctly(): array

@@ -8,10 +8,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Euclid;
 
-/**
- * @SuppressWarnings(PHPMD.CamelCaseMethodName)
- * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
- */
 final class EuclidTest extends TestCase
 {
     public static function provide_run_can_run_euclidean_algorithm_correctly(): array

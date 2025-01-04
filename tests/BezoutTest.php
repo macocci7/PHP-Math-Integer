@@ -8,10 +8,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Macocci7\PhpMathInteger\Bezout;
 
-/**
- * @SuppressWarnings(PHPMD.CamelCaseMethodName)
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
- */
 final class BezoutTest extends TestCase
 {
     public static function provide_set_can_throw_exception_with_invalid_param(): array

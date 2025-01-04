@@ -11,9 +11,6 @@ use Macocci7\PhpMathInteger\Multiple;
  * class for treating matters of fraction
  * @author  macocci7 <macocci7@yahoo.co.jp>
  * @license MIT
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- * @SuppressWarnings(PHPMD.ElseExpression)
  */
 class Fraction
 {
@@ -58,8 +55,9 @@ class Fraction
 
     /**
      * constructor
+     * @param   string|null $s = null
      */
-    public function __construct(string $s = null)
+    public function __construct(string|null $s = null)
     {
         $this->n = new Number();
         $this->d = new Divisor();
