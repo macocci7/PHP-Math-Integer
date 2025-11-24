@@ -1,6 +1,5 @@
 {
     "name": "macocci7/php-math-integer",
-    "version": "1.1.4",
     "description": "PHP Math Library of the subjects of number theory(only natural number).",
     "type": "library",
     "license": "MIT",
@@ -20,7 +19,7 @@
         "php": ">=8.1"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.11",
+        "squizlabs/php_codesniffer": "^4.0",
         "phpunit/phpunit": "^10.5",
         "phpstan/phpstan": "^2.1",
         "php-parallel-lint/php-parallel-lint": "^1.4"
